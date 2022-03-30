@@ -1,6 +1,4 @@
-## Biblioteca PHP para consumir a API da Fitbank
-
-# Mercado Pago SDK for PHP
+# Fitbank community SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/hafael/fitbank-php-sdk/v/main)](https://packagist.org/packages/hafael/fitbank-php-sdk)
 [![Total Downloads](https://poser.pugx.org/hafael/fitbank-php-sdk/downloads)](https://packagist.org/packages/hafael/fitbank-php-sdk)
@@ -129,9 +127,7 @@ Visit our Dev Site for further information regarding:
  - Fitbank API Docs: [English](https://dev.fitbank.com.br/docs)
 
 
-## 🏻 License 
+## License 
 
-```
 MIT license. Copyright (c) 2022 - Hafael / Fitbank
 For more information, see the [LICENSE](https://github.com/hafael/fitbank-php-sdk/blob/main/LICENSE) file.
-```
