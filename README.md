@@ -55,7 +55,7 @@ Creating new KYC Account
   <?php
     require_once 'vendor/autoload.php';
 
-    use Hafael\Fitbank\Client
+    use Hafael\Fitbank\Client;
     use Hafael\Fitbank\Models\Account;
     use Hafael\Fitbank\Models\Address;
     use Hafael\Fitbank\Models\Document;
