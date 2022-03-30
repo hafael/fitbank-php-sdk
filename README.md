@@ -1,8 +1,9 @@
 # Fitbank community SDK for PHP
 
-[![Latest Stable Version](https://poser.pugx.org/hafael/fitbank-php-sdk/v/main)](https://packagist.org/packages/hafael/fitbank-php-sdk)
-[![Total Downloads](https://poser.pugx.org/hafael/fitbank-php-sdk/downloads)](https://packagist.org/packages/hafael/fitbank-php-sdk)
-[![License](https://poser.pugx.org/hafael/fitbank-php-sdk/license)](https://packagist.org/packages/hafael/fitbank-php-sdk)
+[![Latest Stable Version](http://poser.pugx.org/hafael/fitbank-php-sdk/v)](https://packagist.org/packages/hafael/fitbank-php-sdk)
+[![Latest Unstable Version](http://poser.pugx.org/hafael/fitbank-php-sdk/v/unstable)](https://packagist.org/packages/hafael/fitbank-php-sdk)
+[![Total Downloads](http://poser.pugx.org/hafael/fitbank-php-sdk/downloads)](https://packagist.org/packages/hafael/fitbank-php-sdk)
+[![License](http://poser.pugx.org/hafael/fitbank-php-sdk/license)](https://packagist.org/packages/hafael/fitbank-php-sdk)
 
 This library provides developers with a simple set of bindings to help you integrate Fitbank API to PHP website project.
 
