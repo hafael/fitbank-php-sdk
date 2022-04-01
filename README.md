@@ -7,9 +7,27 @@
 
 This library provides developers with a simple set of bindings to help you integrate Fitbank API to PHP website project.
 
+
 ## 💡 Requirements
 
 PHP 7.3 or higher
+
+
+## Features covered
+
+| Resource          | Status   |
+| ----------------- | :------: |
+| Onboarding PF/PJ  | ✅  |
+| Boleto            | ⌛  |
+| PIX               | 💻  |
+| TED in/out        | 💻  |
+| Prepaid card      | 💻  |
+| Payments          | 💻  |
+| Users             | 💻  |
+
+✅ = Available
+⌛ = Testing
+💻 = In development
 
 ## 💻 Installation 
 
@@ -23,6 +41,7 @@ First time using Fitbank? Create your [Fitbank account](https://www.fitbank.com)
 3. Copy the API Key and Secret and replace API_KEY and API_SECRET with it.
 
 That's it! Fitbank PHP SDK has been successfully installed.
+
 
 ## 🌟 Getting Started
   
@@ -121,6 +140,7 @@ Creating new KYC Account
 
   ?>
 ```
+
 
 ## 📚 Documentation 
 
