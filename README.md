@@ -13,7 +13,7 @@ This library provides developers with a simple set of bindings to help you integ
 PHP 7.3 or higher
 
 
-## Features covered
+## 🧩 Features covered
 
 | Resource          | Status   |
 | ----------------- | :------: |
@@ -148,7 +148,7 @@ Visit our Dev Site for further information regarding:
  - Fitbank API Docs: [English](https://dev.fitbank.com.br/docs)
 
 
-## License 
+## 📜 License 
 
 MIT license. Copyright (c) 2022 - Hafael / Fitbank
 For more information, see the [LICENSE](https://github.com/hafael/fitbank-php-sdk/blob/main/LICENSE) file.
