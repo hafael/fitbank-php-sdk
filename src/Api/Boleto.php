@@ -59,15 +59,14 @@ class Boleto extends Api
      * CancelBoleto
      * 
      * @param string $documentNumber
-     * @param int $mktPlaceId
      * @return mixed
      */
-    public function cancelBoleto($documentNumber, $mktPlaceId)
+    public function cancelBoleto($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
             'Method'         => 'CancelBoleto',
             'DocumentNumber' => $documentNumber,
-            'MktPlaceId'     => $mktPlaceId,
+            'MktPlaceId'     => $this->client->getMktPlaceId(),
         ]));
     }
 

@@ -82,6 +82,12 @@ class Product
         if(isset($data['receiverPersonType'])) {
             $this->receiverPersonType($data['receiverPersonType']);
         }
+        if(isset($data['receiverName'])) {
+            $this->receiverName($data['receiverName']);
+        }
+        if(isset($data['receiverTaxNumber'])) {
+            $this->receiverTaxNumber($data['receiverTaxNumber']);
+        }
         if(isset($data['reference'])) {
             $this->reference($data['reference']);
         }
@@ -132,6 +138,24 @@ class Product
     public function receiverPersonType(int $receiverPersonType)
     {
         $this->receiverPersonType = $receiverPersonType;
+        return $this;
+    }
+
+    /**
+     * @param string $receiverName
+     */
+    public function receiverName(string $receiverName)
+    {
+        $this->receiverName = $receiverName;
+        return $this;
+    }
+
+    /**
+     * @param string $receiverTaxNumber
+     */
+    public function receiverTaxNumber(string $receiverTaxNumber)
+    {
+        $this->receiverTaxNumber = $receiverTaxNumber;
         return $this;
     }
 

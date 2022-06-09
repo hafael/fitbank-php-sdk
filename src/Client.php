@@ -3,6 +3,7 @@
 namespace Hafael\Fitbank;
 
 use Hafael\Fitbank\Api\Account;
+use Hafael\Fitbank\Api\Boleto;
 use Hafael\Fitbank\Api\User;
 use Hafael\Fitbank\Handler\Curl;
 use Hafael\Fitbank\Handler\Http;
@@ -32,6 +33,7 @@ class Client implements ClientInterface
     const API_RESOURCES = [
         'account' => Account::class,
         'users'   => User::class,
+        'boleto'   => Boleto::class,
     ];
 
     /**
@@ -315,6 +317,7 @@ class Client implements ClientInterface
             $resource->setBody(array_merge($data, [
                 'PartnerId' => $this->getPartnerId(),
                 'BusinessUnitId' => $this->getBusinessUnitId(),
+                'MktPlaceId' => $this->getMktPlaceId(),
             ]));
         }
 

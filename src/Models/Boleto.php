@@ -4,9 +4,25 @@ namespace Hafael\Fitbank\Models;
 
 class Boleto
 {
+    
+    const TYPE_CHARGE             = 0;
+    const TYPE_CASHIN             = 1;
+    const CHARGE_RECURRING        = true;
+    const CHARGE_SINGLE           = false;
 
-    const CHARGE_RECURRING = true;
-    const CHARGE_SINGLE    = false;
+    const RATE_DEFAULT            = 1;
+    const RATE_SENT_ON_REQUEST    = 0;
+    const RATE_NO_CHARGE          = 2;
+
+    const STATUS_CREATED          = 0;
+    const STATUS_CAN_BE_REGISTRED = 1;
+    const STATUS_REGISTERING      = 2;
+    const STATUS_REGISTERED       = 3;
+    const STATUS_REJECTED         = 4;
+    const STATUS_SETTLED          = 5;
+    const STATUS_CANCELED         = 7;
+    const STATUS_INTERNAL_ERROR   = 8;
+    const STATUS_BALANCE_ERROR    = 9;
 
     /**
      * @var int
@@ -16,7 +32,7 @@ class Boleto
     /**
      * @var int
      */
-    public $groupTemplate;
+    public $groupTemplate = 2;
 
     /**
      * @var string
@@ -81,6 +97,11 @@ class Boleto
     /**
      * @var string
      */
+    public $addressLine2;
+
+    /**
+     * @var string
+     */
     public $neighborhood;
 
     /**
@@ -134,49 +155,69 @@ class Boleto
     public $fineDate;
 
     /**
-     * @var int
+     * @var string
      */
-    public $finePercent;
+    public $discountDate;
 
     /**
      * @var int
      */
-    public $rateValue;
+    public $finePercent = 0;
+
+    /**
+     * @var int
+     */
+    public $rateValueType = self::RATE_DEFAULT;
+
+    /**
+     * @var int
+     */
+    public $rateValue = 0;
     
     /**
      * @var int
      */
-    public $rateSent;
+    public $rateSent = 0;
 
     /**
      * @var int
      */
-    public $totalValue;
+    public $totalValue = 0;
 
     /**
      * @var int
      */
-    public $rebateValue;
+    public $fineValue = 0;
 
     /**
      * @var int
      */
-    public $discountValue;
+    public $rebateValue = 0;
 
     /**
      * @var int
      */
-    public $interestValue;
+    public $discountValue = 0;
 
     /**
      * @var int
      */
-    public $installmentsNumber;
+    public $interestValue = 0;
+
+    /**
+     * @var float
+     */
+    public $interestPercent = 0;
+
+    /**
+     * @var int
+     */
+    public $installmentsNumber = 1;
 
     /**
      * @var boolean
      */
-    public $chargeType = self::CHARGE_SINGLE;
+    public $chargeType = self::TYPE_CHARGE;
 
     /**
      * @var array
@@ -232,6 +273,9 @@ class Boleto
         if(isset($data['addressLine1'])) {
             $this->addressLine1($data['addressLine1']);
         }
+        if(isset($data['addressLine2'])) {
+            $this->addressLine1($data['addressLine2']);
+        }
         if(isset($data['neighborhood'])) {
             $this->neighborhood($data['neighborhood']);
         }
@@ -265,8 +309,17 @@ class Boleto
         if(isset($data['fineDate'])) {
             $this->fineDate($data['fineDate']);
         }
+        if(isset($data['discountDate'])) {
+            $this->discountDate($data['discountDate']);
+        }
         if(isset($data['finePercent'])) {
             $this->finePercent($data['finePercent']);
+        }
+        if(isset($data['fineValue'])) {
+            $this->fineValue($data['fineValue']);
+        }
+        if(isset($data['rateValueType'])) {
+            $this->rateValueType($data['rateValueType']);
         }
         if(isset($data['rateValue'])) {
             $this->rateValue($data['rateValue']);
@@ -285,6 +338,9 @@ class Boleto
         }
         if(isset($data['interestValue'])) {
             $this->interestValue($data['interestValue']);
+        }
+        if(isset($data['interestPercent'])) {
+            $this->interestPercent($data['interestPercent']);
         }
         if(isset($data['installmentsNumber'])) {
             $this->installmentsNumber($data['installmentsNumber']);
@@ -424,6 +480,15 @@ class Boleto
     }
 
     /**
+     * @param string $addressLine2
+     */
+    public function addressLine2(string $addressLine2)
+    {
+        $this->addressLine2 = $addressLine2;
+        return $this;
+    }
+
+    /**
      * @param string $neighborhood
      */
     public function neighborhood(string $neighborhood)
@@ -523,11 +588,38 @@ class Boleto
     }
 
     /**
+     * @param string $discountDate
+     */
+    public function discountDate(string $discountDate)
+    {
+        $this->discountDate = $discountDate;
+        return $this;
+    }
+
+    /**
      * @param int $finePercent
      */
     public function finePercent(int $finePercent)
     {
         $this->finePercent = $finePercent;
+        return $this;
+    }
+
+    /**
+     * @param int $fineValue
+     */
+    public function fineValue(int $fineValue)
+    {
+        $this->fineValue = $fineValue;
+        return $this;
+    }
+
+    /**
+     * @param int $rateValueType
+     */
+    public function rateValueType(int $rateValueType)
+    {
+        $this->rateValueType = $rateValueType;
         return $this;
     }
 
@@ -586,6 +678,15 @@ class Boleto
     }
 
     /**
+     * @param float $interestPercent
+     */
+    public function interestPercent(float $interestPercent)
+    {
+        $this->interestPercent = $interestPercent;
+        return $this;
+    }
+
+    /**
      * @param int $installmentsNumber
      */
     public function installmentsNumber(int $installmentsNumber)
@@ -604,13 +705,33 @@ class Boleto
     }
 
     /**
+     * @return bool
+     */
+    public function isCashin()
+    {
+        return $this->chargeType == 1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRecurring()
+    {
+        return $this->installmentsNumber > 1;
+    }
+
+    /**
      * @param array $products
      */
     public function products(array $products)
     {
         foreach($products as $product)
         {
-            $this->products[] = new Product($product);
+            if($product instanceof Product) {
+                $this->products[] = $product;
+            }else if (is_array($product)) {
+                $this->products[] = new Product($product);
+            }
         }
         return $this;
     }
@@ -636,6 +757,7 @@ class Boleto
             'SupplierPhone'            => $this->supplierPhone,
             'SupplierIdentityDocument' => $this->supplierIdentityDocument,
             'AddressLine1'             => $this->addressLine1,
+            'AddressLine2'             => $this->addressLine2,
             'Neighborhood'             => $this->neighborhood,
             'City'                     => $this->city,
             'State'                    => $this->state,
@@ -647,17 +769,22 @@ class Boleto
             'Registration'             => $this->registration,
             'DueDate'                  => $this->dueDate,
             'FineDate'                 => $this->fineDate,
+            'DiscountDate'             => $this->discountDate,
             'FinePercent'              => $this->finePercent,
             'RateValue'                => $this->rateValue,
-            'RateSent'                 => $this->rateSent,
+            'RateValueType'            => $this->rateValueType,
+            'Ratesent'                 => $this->rateSent,
             'TotalValue'               => $this->totalValue,
             'RebateValue'              => $this->rebateValue,
             'DiscountValue'            => $this->discountValue,
             'InterestValue'            => $this->interestValue,
+            'InterestPercent'          => $this->interestPercent,
             'InstallmentsNumber'       => $this->installmentsNumber,
-            'Carnet'                   => $this->chargeType === self::CHARGE_RECURRING ? true: false,
-            'Products'                 => $this->products,
-        ]);
+            'Carnet'                   => $this->isRecurring(),
+            'Products'                 => array_map(function($product) {return $product->toArray(); }, $this->products),
+        ], function($value) {
+            return (is_array($value) && !empty($value)) || ((is_string($value) || is_numeric($value)) && !is_null($value) && $value != '');
+        });
     }
 
 }
