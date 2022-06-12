@@ -89,4 +89,19 @@ class Account extends Api
         ));
     }
 
+    /**
+     * NewAccount
+     * 
+     * @param AccountModel $account
+     * @return mixed
+     */
+    public function resendDocuments(AccountModel $account)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method' => 'ResendDocuments',
+            'TaxNumber' => $account->holder->taxNumber,
+            'Documents' => array_map(function($document){return $document->toArray();}, $account->documents),
+        ]));
+    }
+
 }

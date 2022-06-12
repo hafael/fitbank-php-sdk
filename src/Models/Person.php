@@ -128,7 +128,17 @@ class Person
     /**
      * @var string
      */
+    public $literacy;
+
+    /**
+     * @var string
+     */
     public $identityDocument;
+
+     /**
+     * @var integer
+     */
+    public $monthlyIncome;
 
     /**
      * Model constructor.
@@ -198,8 +208,14 @@ class Person
         if(isset($data['occupation'])) {
             $this->occupation($data['occupation']);
         }
+        if(isset($data['literacy'])) {
+            $this->literacy($data['literacy']);
+        }
         if(isset($data['identityDocument'])) {
             $this->identityDocument($data['identityDocument']);
+        }
+        if(isset($data['monthlyIncome'])) {
+            $this->monthlyIncome($data['monthlyIncome']);
         }
     }
 
@@ -384,11 +400,29 @@ class Person
     }
 
     /**
+     * @param string $literacy
+     */
+    public function literacy(string $literacy)
+    {
+        $this->literacy = $literacy;
+        return $this;
+    }
+
+    /**
      * @param string $identityDocument
      */
     public function identityDocument(string $identityDocument)
     {
         $this->identityDocument = $identityDocument;
+        return $this;
+    }
+
+    /**
+     * @param int $monthlyIncome
+     */
+    public function monthlyIncome(int $monthlyIncome)
+    {
+        $this->monthlyIncome = $monthlyIncome;
         return $this;
     }
 
@@ -420,6 +454,7 @@ class Person
             'SpouseName'            => $this->spouseName,
             'Occupation'            => $this->occupation,
             'IdentityDocument'      => $this->identityDocument,
+            'MonthlyIncome'         => $this->monthlyIncome,
         ]);
     }
 }
