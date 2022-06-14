@@ -36,6 +36,11 @@ class Person
     /**
      * @var string
      */
+    public $identifier;
+
+    /**
+     * @var string
+     */
     public $mail;
 
     /**
@@ -108,12 +113,12 @@ class Person
     /**
      * @var string
      */
-    public $gender = self::GENDER_OTHER;
+    public $gender;
 
     /**
      * @var string
      */
-    public $maritalStatus = self::MARITAL_SINGLE;
+    public $maritalStatus;
 
     /**
      * @var string
@@ -152,6 +157,9 @@ class Person
         }
         if(isset($data['taxNumber'])) {
             $this->taxNumber($data['taxNumber']);
+        }
+        if(isset($data['identifier'])) {
+            $this->identifier($data['identifier']);
         }
         if(isset($data['mail'])) {
             $this->mail($data['mail']);
@@ -234,6 +242,15 @@ class Person
     public function taxNumber(string $taxNumber)
     {
         $this->taxNumber = $taxNumber;
+        return $this;
+    }
+
+    /**
+     * @param string $identifier
+     */
+    public function identifier(string $identifier)
+    {
+        $this->identifier = $identifier;
         return $this;
     }
 
@@ -435,12 +452,13 @@ class Person
         return array_filter([
             'PersonRoleType'        => $this->personRoleType,
             'TaxNumber'             => $this->taxNumber,
+            'Identifier'            => $this->identifier,
             'Mail'                  => $this->mail,
             'Name'                  => $this->name,
             'PersonName'            => $this->personName,
             'PhoneNumber'           => $this->phoneNumber,
             'Phone'                 => $this->phone,
-            'NickName'              => $this->nickname,
+            'Nickname'              => $this->nickname,
             'PubliclyExposedPerson' => $this->publicExposedPerson,
             'CheckPendingTransfers' => $this->checkPendingTransfers,
             'BirthDate'             => $this->birthDate,

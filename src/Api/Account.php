@@ -4,6 +4,7 @@ namespace Hafael\Fitbank\Api;
 
 use Hafael\Fitbank\Route;
 use Hafael\Fitbank\Models\Account as AccountModel;
+use Hafael\Fitbank\Models\Person;
 
 class Account extends Api
 {
@@ -102,6 +103,20 @@ class Account extends Api
             'TaxNumber' => $account->holder->taxNumber,
             'Documents' => array_map(function($document){return $document->toArray();}, $account->documents),
         ]));
+    }
+
+    /**
+     * UpdatePersonData
+     * 
+     * @param Person $person
+     * @return mixed
+     */
+    public function updatePersonData(Person $person)
+    {
+        return $this->client->post(new Route(), $this->getBody(
+            array_merge([
+                'Method' => 'UpdatePersonData',
+            ], $person->toArray())));
     }
 
 }
