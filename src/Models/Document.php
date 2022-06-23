@@ -172,7 +172,15 @@ class Document
      */
     public function documentFile(string $documentFile)
     {
-        $this->documentFile = $documentFile;
+        
+
+        if(strpos($documentFile, 'data:') === false) {
+            $this->documentFile = $documentFile;
+        }else {
+            $data = explode( ',', $documentFile );
+            $this->documentFile = $data[1];
+        }
+
         return $this;
     }
 

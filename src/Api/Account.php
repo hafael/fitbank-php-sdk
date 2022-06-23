@@ -98,10 +98,27 @@ class Account extends Api
      */
     public function resendDocuments(AccountModel $account)
     {
+
         return $this->client->post(new Route(), $this->getBody([
             'Method' => 'ResendDocuments',
             'TaxNumber' => $account->holder->taxNumber,
             'Documents' => array_map(function($document){return $document->toArray();}, $account->documents),
+        ]));
+    }
+
+    /**
+     * GetDocument
+     * 
+     * @param string $taxNumber
+     * @param int $documentType
+     * @return mixed
+     */
+    public function getDocumentInfo(string $taxNumber, int $documentType)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method' => 'GetDocument',
+            'TaxNumber' => $taxNumber,
+            'DocumentType' => $documentType,
         ]));
     }
 
@@ -117,6 +134,55 @@ class Account extends Api
             array_merge([
                 'Method' => 'UpdatePersonData',
             ], $person->toArray())));
+    }
+
+    /**
+     * GetAccountOperationLimit
+     * 
+     * @param AccountModel $account
+     * @param int $type
+     * @param int $opType
+     * @param int $subType
+     * @return mixed
+     */
+    public function getAccountOperationLimit(AccountModel $account, int $type = 0, int $opType = 0, int $subType = 0)
+    {
+        return $this->client->post(new Route(), $this->getBody(
+            array_merge([
+                'Method' => 'GetAccountOperationLimit',
+                'Type' => $type,
+                'OperationType' => $opType,
+                'SubType' => $subType,
+            ], $account->toArray())));
+    }
+
+    /**
+     * ChangeAccountOperationLimit
+     * 
+     * @param AccountModel $account
+     * @param int $type
+     * @param int $opType
+     * @param int $subType
+     * @param float $minLimit
+     * @param float $maxLimit
+     * @return mixed
+     */
+    public function changeAccountOperationLimit(AccountModel $account, 
+                                                int $type = 0, 
+                                                int $opType = 0, 
+                                                int $subType = 0,
+                                                float $minLimit,
+                                                float $maxLimit)
+    {
+        return $this->client->post(new Route(), $this->getBody(
+            array_merge([
+                'Method' => 'ChangeAccountOperationLimit',
+                'Type' => $type,
+                'OperationType' => $opType,
+                'SubType' => $subType,
+                'MinLimitValue' => $minLimit,
+                'MaxLimitValue' => $maxLimit,
+            ], $account->toArray())));
     }
 
 }
