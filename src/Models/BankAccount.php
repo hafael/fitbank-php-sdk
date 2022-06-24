@@ -8,6 +8,11 @@ class BankAccount
     /**
      * @var string
      */
+    public $taxNumber;
+    
+    /**
+     * @var string
+     */
     public $bank;
 
     /**
@@ -43,6 +48,9 @@ class BankAccount
      */
     public function __construct($data = [])
     {
+        if(isset($data['taxNumber'])) {
+            $this->taxNumber($data['taxNumber']);
+        }
         if(isset($data['bank'])) {
             $this->bank($data['bank']);
         }
@@ -61,6 +69,15 @@ class BankAccount
         if(isset($data['spbAccount'])) {
             $this->spbAccount($data['spbAccount']);
         }
+    }
+
+    /**
+     * @param string $taxNumber
+     */
+    public function taxNumber(string $taxNumber = null)
+    {
+        $this->taxNumber = $taxNumber;
+        return $this;
     }
 
     /**
@@ -137,6 +154,7 @@ class BankAccount
     public function toArray()
     {
         return array_filter([
+            'TaxNumber'        => $this->taxNumber,
             'Bank'             => $this->bank,
             'BankBranch'       => $this->bankBranch,
             'BankAccount'      => $this->bankAccount,

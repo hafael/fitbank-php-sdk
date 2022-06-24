@@ -17,19 +17,19 @@ PHP 7.3 or higher
 
 | Resource          | Status   |
 | ----------------- | :------: |
-| Onboarding PF/PJ  | ✅  |
+| Account PF/PJ     | ✅  |
 | Boleto            | ⌛  |
-| PIX               | 💻  |
+| PIX               | ⌛  |
 | TED in/out        | 💻  |
 | Prepaid card      | 💻  |
 | Payments          | 💻  |
-| Users             | 💻  |
+| Users             | ✅  |
 
-✅ = Available
-⌛ = Testing
-💻 = In development
+✅ = All methods available
+⌛ = Under development/testing
+💻 = Awaiting contributions
 
-## 💻 Installation 
+## 📦 Installation 
 
 First time using Fitbank? Create your [Fitbank account](https://www.fitbank.com), if you don’t have one already.
 
