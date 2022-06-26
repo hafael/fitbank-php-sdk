@@ -73,6 +73,7 @@ class Account extends Api
 
         return $this->client->post(new Route(), $this->getBody(array_merge([
             'Method'                  => 'GetAccountEntry',
+            'TaxNumber'               => $account->taxNumber,
             'StartDate'               => $startDate,
             'EndDate'                 => $endDate,
             'OnlyBalance'             => !$onlyBalance ? 'false': 'true',
