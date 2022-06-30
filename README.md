@@ -18,9 +18,10 @@ PHP 7.3 or higher
 | Resource          | Status   |
 | ----------------- | :------: |
 | Account PF/PJ     | ✅  |
-| Boleto            | ⌛  |
-| PIX               | ⌛  |
-| TED in/out        | 💻  |
+| Boleto in         | ✅  |
+| Boleto out        | 💻  |
+| PIX in/out/Dict   | ✅  |
+| TED in/out        | ⌛  |
 | Prepaid card      | 💻  |
 | Payments          | 💻  |
 | Users             | ✅  |

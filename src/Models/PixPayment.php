@@ -4,23 +4,27 @@ namespace Hafael\Fitbank\Models;
 
 class PixPayment
 {
+    const STATUS_CREATED           = 0;
+    const STATUS_CAN_BE_REGISTER   = 1;
+    const STATUS_REGISTERING       = 2;
+    const STATUS_REGISTERED        = 3;
+    const STATUS_ERROR             = 4;
+    const STATUS_SETTLED           = 5;
+    const STATUS_CANCELED          = 6;
+    const STATUS_AWAITING_ANALYSIS = 7;
+    const STATUS_AWAITING_REFUND = 8;
 
-    const TYPE_SOCIAL_SECURITY = 0;
-    const TYPE_TAX_NUMBER = 1;
-    const TYPE_EMAIL = 2;
-    const TYPE_PHONE_NUMBER = 3;
-    const TYPE_RANDOM_KEY_CODE = 4;
-
-    const STATUS_CREATED = 0;
-    const STATUS_REGISTERING = 1;
-    const STATUS_REGISTERED = 2;
-    const STATUS_DISABLED = 3;
-    const STATUS_CANCELED = 4;
-    const STATUS_ERROR = 5;
-    //Portability status
-    const STATUS_CLAIMING = 6;
-    const STATUS_ERROR_OWNERSHIP = 7;
-    const STATUS_ERROR_PORTABILITY = 8;
+    const STATUS_LABEL = [
+        self::STATUS_CREATED           => 'Created',
+        self::STATUS_CAN_BE_REGISTER   => 'CanBeRegister',
+        self::STATUS_REGISTERING       => 'Registering',
+        self::STATUS_REGISTERED        => 'Registered',
+        self::STATUS_ERROR             => 'Error',
+        self::STATUS_SETTLED           => 'Settled',
+        self::STATUS_CANCELED          => 'Canceled',
+        self::STATUS_AWAITING_ANALYSIS => 'AwaitingAnalysis',
+        self::STATUS_AWAITING_REFUND   => 'AwaitingRefund',
+    ];
 
     /**
      * @var string
@@ -51,6 +55,11 @@ class PixPayment
      * @var PixKey
      */
     public $toKey;
+
+    /**
+     * @var PixKey
+     */
+    public $fromKey;
 
     /**
      * @var int
@@ -132,6 +141,9 @@ class PixPayment
         if(isset($data['toKey'])) {
             $this->toKey($data['toKey']);
         }
+        if(isset($data['fromKey'])) {
+            $this->fromKey($data['fromKey']);
+        }
         if(isset($data['paymentDate'])) {
             $this->paymentDate($data['paymentDate']);
         }
@@ -206,6 +218,15 @@ class PixPayment
     public function bankAccountDigit(string $bankAccountDigit)
     {
         $this->bankAccountDigit = $bankAccountDigit;
+        return $this;
+    }
+
+    /**
+     * @param PixKey $fromKey
+     */
+    public function fromKey(PixKey $fromKey)
+    {
+        $this->fromKey = $fromKey;
         return $this;
     }
 
@@ -309,6 +330,106 @@ class PixPayment
     }
 
     /**
+     * @param int $changeType
+     */
+    public function changeType(int $changeType)
+    {
+        $this->changeType = $changeType;
+        return $this;
+    }
+
+    /**
+     * @param bool $reusable
+     */
+    public function reusable(bool $reusable)
+    {
+        $this->reusable = $reusable;
+        return $this;
+    }
+
+    /**
+     * @param float $principalValue
+     */
+    public function principalValue(float $principalValue)
+    {
+        $this->principalValue = $principalValue;
+        return $this;
+    }
+
+    /**
+     * @param array $additionalData
+     */
+    public function additionalData(array $additionalData)
+    {
+        $this->additionalData = $additionalData;
+        return $this;
+    }
+
+    /**
+     * @param string $payerRequest
+     */
+    public function payerRequest(string $payerRequest)
+    {
+        $this->payerRequest = $payerRequest;
+        return $this;
+    }
+
+    /**
+     * @param string $expirationDate
+     */
+    public function expirationDate(string $expirationDate)
+    {
+        $this->expirationDate = $expirationDate;
+        return $this;
+    }
+
+    /**
+     * @param int $transactionPurpose
+     */
+    public function transactionPurpose(int $transactionPurpose)
+    {
+        $this->transactionPurpose = $transactionPurpose;
+        return $this;
+    }
+
+    /**
+     * @param int $transactionValue
+     */
+    public function transactionValue(int $transactionValue)
+    {
+        $this->transactionValue = $transactionValue;
+        return $this;
+    }
+
+    /**
+     * @param int $transactionChangeType
+     */
+    public function transactionChangeType(int $transactionChangeType)
+    {
+        $this->transactionChangeType = $transactionChangeType;
+        return $this;
+    }
+
+    /**
+     * @param int $agentModality
+     */
+    public function agentModality(int $agentModality)
+    {
+        $this->agentModality = $agentModality;
+        return $this;
+    }
+
+    /**
+     * @param Address $address
+     */
+    public function address(Address $address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * All payment read attributes
      * 
      * @return array
      */
@@ -316,45 +437,93 @@ class PixPayment
     {
         return array_filter([
             //From
-            'PixKey'               => $this->toKey->key,
-            'PixKeyType'           => $this->toKey->keyType,
-            'Bank'                 => $this->bank,
-            'BankBranch'           => $this->bankBranch,
-            'BankAccount'          => $this->bankAccount,
-            'BankAccountDigit'     => $this->bankAccountDigit,
-            'TaxNumber'            => $this->taxNumber,
+            'PixKey'                => $this->toKey->key,
+            'PixKeyType'            => $this->toKey->keyType,
+            'Bank'                  => $this->bank,
+            'BankBranch'            => $this->bankBranch,
+            'BankAccount'           => $this->bankAccount,
+            'BankAccountDigit'      => $this->bankAccountDigit,
+            'TaxNumber'             => $this->taxNumber,
+            //From(PixIn)
+            'payerName'             => $this->fromKey->name,
+            'payerTaxNumber'        => $this->fromKey->taxNumber,
+            
+            /////////00
+            'ChangeType'            => $this->changeType,
+            'reusable'              => $this->reusable,
+            'PrincipalValue'        => $this->principalValue,
+            'additionalData'        => $this->additionalData,
+            'payerRequest'          => $this->payerRequest,
+            'ExpirationDate'        => $this->expirationDate,
+            'TransactionPurpose'    => $this->transactionPurpose,
+            'TransactionValue'      => $this->transactionValue,
+            'TransactionChangeType' => $this->transactionChangeType,
+            'AgentModality'         => $this->agentModality,
+            'Address'               => $this->address,
+            
             //To
-            'ToName'               => $this->toKey->name,
-            'ToTaxNumber'          => $this->toKey->taxNumber,
-            'ToBank'               => $this->toKey->bank,
-            'ToBankBranch'         => $this->toKey->bankBranch,
-            'ToBankAccount'        => $this->toKey->bankAccount,
-            'ToBankAccountDigit'   => $this->toKey->bankAccountDigit,
-            'AccountType'          => $this->toKey->accountType,
+            'ToName'                => $this->toKey->name,
+            'ToTaxNumber'           => $this->toKey->taxNumber,
+            'ToBank'                => $this->toKey->bank,
+            'ToBankBranch'          => $this->toKey->bankBranch,
+            'ToBankAccount'         => $this->toKey->bankAccount,
+            'ToBankAccountDigit'    => $this->toKey->bankAccountDigit,
+            'AccountType'           => $this->toKey->accountType,
             //Parameters
-            'Value'                => $this->value,
-            'RateValue'            => $this->rateValue,
-            'RateValueType'        => $this->rateValueType,
-            'Identifier'           => $this->identifier,
-            'PaymentDate'          => $this->paymentDate,
-            'Description'          => $this->description,
-            'OnlineTransfer'       => $this->onlineTransfer,
-            'SearchProtocol'       => $this->searchProtocol,
-            'CustomerMessage'      => $this->customerMessage,
+            'Value'                 => $this->value,
+            'RateValue'             => $this->rateValue,
+            'RateValueType'         => $this->rateValueType,
+            'Identifier'            => $this->identifier,
+            'PaymentDate'           => $this->paymentDate,
+            'Description'           => $this->description,
+            'OnlineTransfer'        => $this->onlineTransfer,
+            'SearchProtocol'        => $this->searchProtocol,
+            'CustomerMessage'       => $this->customerMessage,
             //Condition
-            'Status'               => $this->status,
+            'Status'                => $this->status,
         ], function($value) {
             return !is_null($value);
         });
     }
 
-    public function toFilteredExampleFields()
+    public function toSendPixOut() {}
+
+    /**
+     * Only GenerateDynamicPixQRCode params
+     * 
+     * @return array
+     */
+    public function toGenerateDynamicPixQRCode()
     {
-        return array_filter($this->toArray(), function($k) {
+        return array_filter(array_merge($this->toArray(), [
+            //From(PixIn)
+            'PixKey'           => $this->fromKey->key,
+            'TaxNumber'        => $this->fromKey->taxNumber,
+            'Bank'             => $this->fromKey->bank,
+            'BankBranch'       => $this->fromKey->bankBranch,
+            'BankAccount'      => $this->fromKey->bankAccount,
+            'BankAccountDigit' => $this->fromKey->bankAccountDigit,
+        ]), function($k) {
             return in_array($k, [
                 'PixKey',
-                'PixKeyType',
                 'TaxNumber',
+                'FromBank',
+                'FromBankBranch',
+                'FromBankAccount',
+                'FromBankAccountDigit',
+                'payerTaxNumber',
+                'payerName',
+                'ChangeType',
+                'reusable',
+                'PrincipalValue',
+                'additionalData',
+                'payerRequest',
+                'ExpirationDate',
+                'TransactionPurpose',
+                'TransactionValue',
+                'TransactionChangeType',
+                'AgentModality',
+                'Address',
             ]);
         }, ARRAY_FILTER_USE_KEY);
     }

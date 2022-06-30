@@ -139,7 +139,7 @@ class Response
      */
     public function ok()
     {
-        return $this->statusCode === 200;
+        return $this->getStatusCode() === 200 && $this->respondSuccess();
     }
 
     /**
@@ -188,6 +188,54 @@ class Response
     public function serverError()
     {
         return $this->statusCode >= 500;
+    }
+
+    /**
+     * @return bool
+     */
+    public function respondSuccess()
+    {
+        return $this->getStatusCode() == 200 && (isset($this->json()['Success']) && filter_var($this->json()['Success'], FILTER_VALIDATE_BOOLEAN)); 
+    }
+
+    /**
+     * @return string
+     */
+    public function errorMessage()
+    {
+        if($this->respondError()) {
+            return $this->json()['Message'];
+        }
+        return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function respondError()
+    {
+        return ! $this->respondSuccess();
+    }
+
+    /**
+     * @return array
+     */
+    public function validationErrors()
+    {
+        if($this->respondError() && isset($this->json()['Validation']) && !empty(isset($this->json()['Validation']))) {
+            return array_map(function($error) {
+                return $error['Value'];
+            }, $this->json()['Validation']);
+        }
+        return [];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValidationError()
+    {
+        return $this->respondError() && !empty($this->validationErrors());
     }
     
 }
