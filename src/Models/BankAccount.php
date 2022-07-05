@@ -8,6 +8,11 @@ class BankAccount
     /**
      * @var string
      */
+    public $name;
+
+    /**
+     * @var string
+     */
     public $taxNumber;
     
     /**
@@ -40,6 +45,11 @@ class BankAccount
      */
     public $spbAccount;
 
+    /**
+     * @var int
+     */
+    public $accountType;
+
 
     /**
      * Model constructor.
@@ -48,6 +58,9 @@ class BankAccount
      */
     public function __construct($data = [])
     {
+        if(isset($data['name'])) {
+            $this->name($data['name']);
+        }
         if(isset($data['taxNumber'])) {
             $this->taxNumber($data['taxNumber']);
         }
@@ -69,6 +82,18 @@ class BankAccount
         if(isset($data['spbAccount'])) {
             $this->spbAccount($data['spbAccount']);
         }
+        if(isset($data['accountType'])) {
+            $this->accountType($data['accountType']);
+        }
+    }
+
+    /**
+     * @param string $name
+     */
+    public function name(string $name = null)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     /**
@@ -131,6 +156,15 @@ class BankAccount
     public function spbAccount(string $spbAccount = null)
     {
         $this->spbAccount = $spbAccount;
+        return $this;
+    }
+
+    /**
+     * @param int $accountType
+     */
+    public function accountType(int $accountType = 0)
+    {
+        $this->accountType = $accountType;
         return $this;
     }
 

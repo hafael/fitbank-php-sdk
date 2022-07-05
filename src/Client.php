@@ -6,6 +6,7 @@ use Hafael\Fitbank\Api\Account;
 use Hafael\Fitbank\Api\Boleto;
 use Hafael\Fitbank\Api\Dict;
 use Hafael\Fitbank\Api\Pix;
+use Hafael\Fitbank\Api\Ted;
 use Hafael\Fitbank\Api\User;
 use Hafael\Fitbank\Handler\Curl;
 use Hafael\Fitbank\Handler\Http;
@@ -38,6 +39,7 @@ class Client implements ClientInterface
         'boleto'  => Boleto::class,
         'pix'     => Pix::class,
         'dict'    => Dict::class,
+        'ted'    => Ted::class,
     ];
 
     /**

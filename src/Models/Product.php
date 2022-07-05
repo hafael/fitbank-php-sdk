@@ -59,9 +59,19 @@ class Product
     public $productQty = 1;
 
     /**
-     * @var int
+     * @var float
      */
     public $productValue;
+
+    /**
+     * @var bool
+     */
+    public $isAutomatic;
+
+    /**
+     * @var BankAccount
+     */
+    public $bank;
 
     /**
      * Model constructor.
@@ -102,6 +112,9 @@ class Product
         }
         if(isset($data['productValue'])) {
             $this->productValue($data['productValue']);
+        }
+        if(isset($data['isAutomatic'])) {
+            $this->isAutomatic($data['isAutomatic']);
         }
     }
 
@@ -196,11 +209,20 @@ class Product
     }
 
     /**
-     * @param int $productValue
+     * @param float $productValue
      */
-    public function productValue(int $productValue)
+    public function productValue(float $productValue)
     {
         $this->productValue = $productValue;
+        return $this;
+    }
+
+    /**
+     * @param bool $isAutomatic
+     */
+    public function isAutomatic(bool $isAutomatic)
+    {
+        $this->isAutomatic = $isAutomatic;
         return $this;
     }
 
@@ -222,6 +244,12 @@ class Product
             'ProductName'        => $this->productName,
             'ProductQty'         => $this->productQty,
             'ProductValue'       => $this->productValue,
+            'IsAutomatic'        => $this->isAutomatic,
+            'Bank'               => empty($this->bank) ? null : $this->bank->bank,
+            'BankBranch'         => empty($this->bank) ? null : $this->bank->bankBranch,
+            'BankAccount'        => empty($this->bank) ? null : $this->bank->bankAccount,
+            'BankAccountDigit'   => empty($this->bank) ? null : $this->bank->bankAccountDigit,
+            'AccountType'        => empty($this->bank) ? null : $this->bank->accountType,
         ]);
     }
 }
