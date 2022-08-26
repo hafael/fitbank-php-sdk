@@ -5,8 +5,10 @@ namespace Hafael\Fitbank;
 use Hafael\Fitbank\Api\Account;
 use Hafael\Fitbank\Api\Boleto;
 use Hafael\Fitbank\Api\Dict;
+use Hafael\Fitbank\Api\Payment;
 use Hafael\Fitbank\Api\Pix;
 use Hafael\Fitbank\Api\Ted;
+use Hafael\Fitbank\Api\TopUp;
 use Hafael\Fitbank\Api\User;
 use Hafael\Fitbank\Handler\Curl;
 use Hafael\Fitbank\Handler\Http;
@@ -34,12 +36,14 @@ class Client implements ClientInterface
      * @var array
      */
     const API_RESOURCES = [
-        'account' => Account::class,
-        'users'   => User::class,
-        'boleto'  => Boleto::class,
-        'pix'     => Pix::class,
-        'dict'    => Dict::class,
-        'ted'    => Ted::class,
+        'account'  => Account::class,
+        'users'    => User::class,
+        'boleto'   => Boleto::class,
+        'pix'      => Pix::class,
+        'dict'     => Dict::class,
+        'ted'      => Ted::class,
+        'topups'   => TopUp::class,
+        'payments' => Payment::class,
     ];
 
     /**
@@ -76,6 +80,11 @@ class Client implements ClientInterface
      * @var string
      */
     private $taxNumber;
+
+    /**
+     * @var bool
+     */
+    private $debugMode = false;
     
     /**
      * The Client (not Eastwood)
@@ -223,6 +232,15 @@ class Client implements ClientInterface
     }
 
     /**
+     * @return Client
+     */
+    public function debugMode()
+    {
+        $this->debugMode = true;
+        return $this;
+    }
+
+    /**
      * GET REQUEST
      * 
      * @method GET
@@ -330,6 +348,10 @@ class Client implements ClientInterface
         if(!empty($headers))
         {
             $resource->addHeaders($headers);
+        }
+
+        if($this->debugMode) {
+            $resource->setDebugMode(true);
         }
 
         return $resource;

@@ -21,6 +21,11 @@ class Response
     protected $content;
 
     /**
+     * @var string
+     */
+    protected $responseLog;
+
+    /**
      * @var array
      */
     protected $decoded;
@@ -77,6 +82,24 @@ class Response
     {
         $this->content = $content;
         return $this;
+    }
+
+    /**
+     * @param string $content
+     * @return Response
+     */
+    public function setResponseLog($content)
+    {
+        $this->responseLog = $content;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function log()
+    {
+        return $this->responseLog;
     }
 
     /**

@@ -49,6 +49,16 @@ class Company
     public $taxNumber;
 
     /**
+     * @var Address
+     */
+    public $address;
+
+    /**
+     * @var array
+     */
+    public $documents;
+
+    /**
      * Model constructor.
      * 
      * @param array $data
@@ -78,6 +88,14 @@ class Company
         }
         if(isset($data['taxNumber'])) {
             $this->taxNumber($data['taxNumber']);
+        }
+
+        if(isset($data['address'])) {
+            $this->address($data['address']);
+        }
+
+        if(isset($data['documents'])) {
+            $this->documents($data['documents']);
         }
     }
 
@@ -164,6 +182,35 @@ class Company
     public function mail(string $mail)
     {
         $this->mail = $mail;
+        return $this;
+    }
+
+    /**
+     * @param array|Address $address
+     */
+    public function address($address)
+    {
+        if($address instanceof Address) {
+            $this->address = $address;
+        }else if (is_array($address)) {
+            $this->address = new Address($address);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $documents
+     */
+    public function documents(array $documents)
+    {
+        foreach($documents as $document)
+        {
+            if($document instanceof Document) {
+                $this->documents[] = $document;
+            }else if (is_array($document)) {
+                $this->documents[] = new Document($document);
+            }
+        }
         return $this;
     }
 

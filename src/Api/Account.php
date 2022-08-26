@@ -5,6 +5,7 @@ namespace Hafael\Fitbank\Api;
 use Hafael\Fitbank\Route;
 use Hafael\Fitbank\Models\Account as AccountModel;
 use Hafael\Fitbank\Models\BankAccount;
+use Hafael\Fitbank\Models\NewAccount;
 use Hafael\Fitbank\Models\Person;
 
 class Account extends Api
@@ -113,10 +114,10 @@ class Account extends Api
     /**
      * NewAccount
      * 
-     * @param AccountModel $account
+     * @param NewAccount $account
      * @return mixed
      */
-    public function newAccount(AccountModel $account)
+    public function newAccount(NewAccount $account)
     {
         return $this->client->post(new Route(), $this->getBody(
             array_merge([

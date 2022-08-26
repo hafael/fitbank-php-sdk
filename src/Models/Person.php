@@ -78,7 +78,7 @@ class Person
     /**
      * @var boolean
      */
-    public $publicExposedPerson = false;
+    public $publiclyExposedPerson = false;
 
     /**
      * @var string
@@ -140,10 +140,20 @@ class Person
      */
     public $identityDocument;
 
-     /**
+    /**
      * @var integer
      */
     public $monthlyIncome;
+
+    /**
+     * @var Address
+     */
+    public $address;
+
+    /**
+     * @var array
+     */
+    public $documents;
 
     /**
      * Model constructor.
@@ -186,6 +196,9 @@ class Person
         if(isset($data['checkPendingTransfers'])) {
             $this->checkPendingTransfers($data['checkPendingTransfers']);
         }
+        if(isset($data['publiclyExposedPerson'])) {
+            $this->publiclyExposedPerson($data['publiclyExposedPerson']);
+        }
         if(isset($data['birthDate'])) {
             $this->birthDate($data['birthDate']);
         }
@@ -224,6 +237,12 @@ class Person
         }
         if(isset($data['monthlyIncome'])) {
             $this->monthlyIncome($data['monthlyIncome']);
+        }
+        if(isset($data['address'])) {
+            $this->address($data['address']);
+        }
+        if(isset($data['documents'])) {
+            $this->documents($data['documents']);
         }
     }
 
@@ -309,11 +328,11 @@ class Person
     }
 
     /**
-     * @param boolean $publicExposedPerson
+     * @param boolean $publiclyExposedPerson
      */
-    public function publicExposedPerson(bool $publicExposedPerson)
+    public function publiclyExposedPerson(bool $publiclyExposedPerson)
     {
-        $this->publicExposedPerson = $publicExposedPerson;
+        $this->publiclyExposedPerson = $publiclyExposedPerson;
         return $this;
     }
 
@@ -444,6 +463,35 @@ class Person
     }
 
     /**
+     * @param array|Address $address
+     */
+    public function address($address)
+    {
+        if($address instanceof Address) {
+            $this->address = $address;
+        }else if (is_array($address)) {
+            $this->address = new Address($address);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $documents
+     */
+    public function documents(array $documents)
+    {
+        foreach($documents as $document)
+        {
+            if($document instanceof Document) {
+                $this->documents[] = $document;
+            }else if (is_array($document)) {
+                $this->documents[] = new Document($document);
+            }
+        }
+        return $this;
+    }
+
+    /**
      * 
      * @return array
      */
@@ -459,7 +507,7 @@ class Person
             'PhoneNumber'           => $this->phoneNumber,
             'Phone'                 => $this->phone,
             'Nickname'              => $this->nickname,
-            'PubliclyExposedPerson' => $this->publicExposedPerson,
+            'PubliclyExposedPerson' => $this->publiclyExposedPerson,
             'CheckPendingTransfers' => $this->checkPendingTransfers,
             'BirthDate'             => $this->birthDate,
             'MotherFullName'        => $this->motherFullName,
@@ -473,6 +521,7 @@ class Person
             'Occupation'            => $this->occupation,
             'IdentityDocument'      => $this->identityDocument,
             'MonthlyIncome'         => $this->monthlyIncome,
+            'PersonDocuments'       => array_map(function($document){return $document->toArray();}, $this->documents),
         ]);
     }
 }

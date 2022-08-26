@@ -2,14 +2,17 @@
 
 namespace Hafael\Fitbank\Handler;
 
+use Exception;
 use Hafael\Fitbank\Exceptions\ClientException;
+use Hafael\Fitbank\Exceptions\ServerException;
+use Hafael\Fitbank\Exceptions\ValidationException;
 
 class Curl
 {
     /**
      * @var string
      */
-    protected $resource;
+    private $resource;
 
     /**
      * @var array
@@ -20,6 +23,16 @@ class Curl
      * @var Response
      */
     private $response;
+
+    /**
+     * @var bool
+     */
+    private $isDebugMode;
+
+    /**
+     * @var string
+     */
+    private $responseLog;
 
     /**
      * @method init
@@ -126,6 +139,16 @@ class Curl
     }
 
     /**
+     * @param boolean $debug
+     */
+    public function setDebugMode($debug = false)
+    {
+        curl_setopt($this->resource, CURLOPT_VERBOSE, $debug);
+        curl_setopt($this->resource, CURLOPT_STDERR, $this->responseLog);
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getHeaders()
@@ -165,12 +188,29 @@ class Curl
     {
         try {
             $return = $this->exec();
-            $this->response->setStatusCode((int)$return['http_code'])
+            $this->response
+                 ->setStatusCode((int)$return['http_code'])
                  ->setContentType($return['content_type'])
                  ->setContent($return['body']);
 
+            if($this->isDebugMode) {
+                $this->response->setResponseLog($this->responseLog);
+            }
+
         } catch(ClientException $ex) {
             $this->handlerException($ex);
+        }
+
+        if(!$this->response->ok() && $this->response->isValidationError()) {
+            
+            throw (new ValidationException($this->response->errorMessage(), 422))->setValidationErrors($this->response->validationErrors());
+
+        }else if((!$this->response->ok() && $this->response->respondError())) {
+            
+            throw new ClientException($this->response->errorMessage(), 400);
+
+        }else if(curl_errno($this->resource)) {
+            throw new ServerException('Server error', 500);
         }
 
         return $this->response;

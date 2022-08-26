@@ -70,4 +70,48 @@ class Boleto extends Api
         ]));
     }
 
+    /**
+     * GetInfosByBarcode
+     * 
+     * @param string $barcodeNumber
+     * @return mixed
+     */
+    public function getInfosByBarcode($barcodeNumber)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method'  => 'GetInfosByBarcode',
+            'Barcode' => $barcodeNumber,
+        ]));
+    }
+
+    /**
+     * GetInfosCIPByBarcode
+     * 
+     * @param string $barcodeNumber
+     * @param string $taxNumber
+     * @return mixed
+     */
+    public function getInfosCIPByBarcode($barcodeNumber, $taxNumber)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method'    => 'GetInfosCIPByBarcode',
+            'Barcode'   => $barcodeNumber,
+            'TaxNumber' => $taxNumber
+        ]));
+    }
+
+    /**
+     * GetBoletoOutByBarcode
+     * 
+     * @param string $barcodeNumber
+     * @return mixed
+     */
+    public function getBoletoOutByBarcode($barcodeNumber)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method'    => 'GetBoletoOutByBarcode',
+            'Barcode'   => $barcodeNumber
+        ]));
+    }
+
 }
