@@ -15,16 +15,17 @@ PHP 7.3 or higher
 
 ## 🧩 Features covered
 
-| Resource          | Status   |
-| ----------------- | :------: |
-| Account PF/PJ     | ✅  |
-| Boleto in         | ✅  |
-| Boleto out        | 💻  |
-| PIX in/out/Dict   | ✅  |
-| TED in/out        | ⌛  |
-| Prepaid card      | 💻  |
-| Payments          | 💻  |
-| Users             | ✅  |
+| Resource             | Status   |
+| -------------------- | :------: |
+| Account PF/PJ/Minors | ✅  |
+| Boleto in            | ✅  |
+| Boleto out           | ✅  |
+| PIX in/out/Dict      | ✅  |
+| TED in/out           | ⌛  |
+| Prepaid card         | 💻  |
+| ATM Withdrawals      | 💻  |
+| Payments             | ⌛  |
+| Users                | ✅  |
 
 ✅ = All methods available
 ⌛ = Under development/testing

@@ -4,6 +4,7 @@ namespace Hafael\Fitbank\Api;
 
 use Hafael\Fitbank\Models\Boleto as BoletoModel;
 use Hafael\Fitbank\Models\BoletoOut;
+use Hafael\Fitbank\Models\PaymentFGTS;
 use Hafael\Fitbank\Route;
 
 class Payment extends Api
@@ -64,7 +65,7 @@ class Payment extends Api
     public function getDARFOutById($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'GetDARFOutById',
+            'Method'  => 'GetDarfOutById',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -78,7 +79,7 @@ class Payment extends Api
     public function getGAREOutById($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'GetGAREOutById',
+            'Method'  => 'GetGareOutById',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -92,7 +93,7 @@ class Payment extends Api
     public function getGPSOutById($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'GetGPSOutById',
+            'Method'  => 'GetGpsOutById',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -106,13 +107,13 @@ class Payment extends Api
     public function getDARJOutById($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'GetDARJOutById',
+            'Method'  => 'GetDarjOutById',
             'DocumentNumber' => $documentNumber,
         ]));
     }
 
     /**
-     * GetFGTSOutById
+     * GetFgtsOutById
      * 
      * @param string $documentNumber
      * @return mixed
@@ -120,7 +121,7 @@ class Payment extends Api
     public function getFGTSOutById($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'GetFGTSOutById',
+            'Method'  => 'GetFgtsOutById',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -138,7 +139,7 @@ class Payment extends Api
     public function getDARFOutByInformations($principalValue, $dueDate, $taxContributor, $referenceNumber, $calculationPeriod)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'GetDARFOutByInformations',
+            'Method'  => 'GetDarfOutByInformations',
             'PrincipalValue' => $principalValue,
             'DueDate' => $dueDate,
             'TaxContributor' => $taxContributor,
@@ -216,7 +217,7 @@ class Payment extends Api
     public function cancelPaymentGPS($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'CancelPaymentGPS',
+            'Method'  => 'CancelPaymentGps',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -230,7 +231,7 @@ class Payment extends Api
     public function cancelPaymentGARE($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'CancelPaymentGARE',
+            'Method'  => 'CancelPaymentGare',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -244,7 +245,7 @@ class Payment extends Api
     public function cancelPaymentFGTS($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'CancelPaymentFGTS',
+            'Method'  => 'CancelPaymentFgts',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -258,7 +259,7 @@ class Payment extends Api
     public function cancelPaymentDARJ($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'CancelPaymentDARJ',
+            'Method'  => 'CancelPaymentDarj',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -272,7 +273,7 @@ class Payment extends Api
     public function cancelPaymentDARF($documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method'  => 'CancelPaymentDARF',
+            'Method'  => 'CancelPaymentDarf',
             'DocumentNumber' => $documentNumber,
         ]));
     }
@@ -280,7 +281,7 @@ class Payment extends Api
     /**
      * GenerateBoletoOut
      * 
-     * @param GenerateBoletoOut $boleto
+     * @param BoletoOut $boleto
      * @return mixed
      */
     public function generateBoletoOut(BoletoOut $boleto)
@@ -289,6 +290,20 @@ class Payment extends Api
         return $this->client->post(new Route(), $this->getBody(array_merge([
             'Method'    => 'GenerateBoletoOut',
         ], $boleto->toArray())));
+    }
+
+    /**
+     * GeneratePaymentFGTS
+     * 
+     * @param PaymentFGTS $payment
+     * @return mixed
+     */
+    public function generatePaymentFGTS(PaymentFGTS $payment)
+    {
+        
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'    => 'GeneratePaymentFGTS',
+        ], $payment->toArray())));
     }
 
 }

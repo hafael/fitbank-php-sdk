@@ -20,6 +20,7 @@ class Boleto
     const STATUS_REGISTERED       = 3;
     const STATUS_REJECTED         = 4;
     const STATUS_SETTLED          = 5;
+    const STATUS_PAID             = 6;
     const STATUS_CANCELED         = 7;
     const STATUS_INTERNAL_ERROR   = 8;
     const STATUS_BALANCE_ERROR    = 9;
@@ -140,6 +141,11 @@ class Boleto
     public $identifier;
 
     /**
+     * @var string
+     */
+    public $comments;
+
+    /**
      * @var int
      */
     public $registration;
@@ -160,7 +166,7 @@ class Boleto
     public $discountDate;
 
     /**
-     * @var int
+     * @var float
      */
     public $finePercent = 0;
 
@@ -170,7 +176,7 @@ class Boleto
     public $rateValueType = self::RATE_DEFAULT;
 
     /**
-     * @var int
+     * @var float
      */
     public $rateValue = 0;
     
@@ -180,27 +186,27 @@ class Boleto
     public $rateSent = 0;
 
     /**
-     * @var int
+     * @var float
      */
     public $totalValue = 0;
 
     /**
-     * @var int
+     * @var float
      */
     public $fineValue = 0;
 
     /**
-     * @var int
+     * @var float
      */
     public $rebateValue = 0;
 
     /**
-     * @var int
+     * @var float
      */
     public $discountValue = 0;
 
     /**
-     * @var int
+     * @var float
      */
     public $interestValue = 0;
 
@@ -299,6 +305,9 @@ class Boleto
         }
         if(isset($data['identifier'])) {
             $this->identifier($data['identifier']);
+        }
+        if(isset($data['comments'])) {
+            $this->comments($data['comments']);
         }
         if(isset($data['registration'])) {
             $this->registration($data['registration']);
@@ -561,6 +570,15 @@ class Boleto
     }
 
     /**
+     * @param string $comments
+     */
+    public function comments(string $comments)
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
+    /**
      * @param string $registration
      */
     public function registration(string $registration)
@@ -597,18 +615,18 @@ class Boleto
     }
 
     /**
-     * @param int $finePercent
+     * @param float $finePercent
      */
-    public function finePercent(int $finePercent)
+    public function finePercent(float $finePercent)
     {
         $this->finePercent = $finePercent;
         return $this;
     }
 
     /**
-     * @param int $fineValue
+     * @param float $fineValue
      */
-    public function fineValue(int $fineValue)
+    public function fineValue(float $fineValue)
     {
         $this->fineValue = $fineValue;
         return $this;
@@ -624,9 +642,9 @@ class Boleto
     }
 
     /**
-     * @param int $rateValue
+     * @param float $rateValue
      */
-    public function rateValue(int $rateValue)
+    public function rateValue(float $rateValue)
     {
         $this->rateValue = $rateValue;
         return $this;
@@ -642,36 +660,36 @@ class Boleto
     }
 
     /**
-     * @param int $totalValue
+     * @param float $totalValue
      */
-    public function totalValue(int $totalValue)
+    public function totalValue(float $totalValue)
     {
         $this->totalValue = $totalValue;
         return $this;
     }
 
     /**
-     * @param int $rebateValue
+     * @param float $rebateValue
      */
-    public function rebateValue(int $rebateValue)
+    public function rebateValue(float $rebateValue)
     {
         $this->rebateValue = $rebateValue;
         return $this;
     }
 
     /**
-     * @param int $discountValue
+     * @param float $discountValue
      */
-    public function discountValue(int $discountValue)
+    public function discountValue(float $discountValue)
     {
         $this->discountValue = $discountValue;
         return $this;
     }
 
     /**
-     * @param int $interestValue
+     * @param float $interestValue
      */
-    public function interestValue(int $interestValue)
+    public function interestValue(float $interestValue)
     {
         $this->interestValue = $interestValue;
         return $this;
@@ -780,6 +798,7 @@ class Boleto
             'InterestValue'            => $this->interestValue,
             'InterestPercent'          => $this->interestPercent,
             'InstallmentsNumber'       => $this->installmentsNumber,
+            'Comments'                 => $this->comments,
             'Carnet'                   => $this->isRecurring(),
             'Products'                 => array_map(function($product) {return $product->toArray(); }, $this->products),
         ], function($value) {

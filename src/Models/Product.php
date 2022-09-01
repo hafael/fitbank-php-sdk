@@ -250,6 +250,8 @@ class Product
             'BankAccount'        => empty($this->bank) ? null : $this->bank->bankAccount,
             'BankAccountDigit'   => empty($this->bank) ? null : $this->bank->bankAccountDigit,
             'AccountType'        => empty($this->bank) ? null : $this->bank->accountType,
-        ]);
+        ], function($value) {
+            return !is_null($value);
+        });
     }
 }
