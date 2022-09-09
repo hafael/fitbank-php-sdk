@@ -217,6 +217,6 @@ class Address
             'State'        => $this->state,
             'Country'      => $this->country,
             'Complement'   => $this->complement,
-        ]);
+        ], fn ($v) => !is_null($v));
     }
 }

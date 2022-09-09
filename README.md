@@ -22,8 +22,8 @@ PHP 7.3 or higher
 | Boleto out           | ✅  |
 | PIX in/out/Dict      | ✅  |
 | TED in/out           | ⌛  |
-| Prepaid card         | 💻  |
-| ATM Withdrawals      | 💻  |
+| Prepaid card         | ✅  |
+| ATM Withdrawals      | ✅  |
 | Payments             | ⌛  |
 | Users                | ✅  |
 

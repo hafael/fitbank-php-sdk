@@ -117,7 +117,7 @@ class Account extends Api
      * @param NewAccount $account
      * @return mixed
      */
-    public function newAccount(NewAccount $account)
+    public function newAccount(AccountModel $account)
     {
         return $this->client->post(new Route(), $this->getBody(
             array_merge([
@@ -151,7 +151,7 @@ class Account extends Api
     {
         return $this->client->post(new Route(), $this->getBody([
             'Method' => 'ResendDocuments',
-            'TaxNumber' => $account->holder->taxNumber,
+            'TaxNumber' => $account->holder()->taxNumber,
             'Documents' => array_map(function($document){return $document->toArray();}, $account->documents),
         ]));
     }
@@ -175,15 +175,15 @@ class Account extends Api
     /**
      * UpdatePersonData
      * 
-     * @param Person $person
+     * @param AccountModel $account
      * @return mixed
      */
-    public function updatePersonData(Person $person)
+    public function updatePersonData(AccountModel $account)
     {
         return $this->client->post(new Route(), $this->getBody(
             array_merge([
                 'Method' => 'UpdatePersonData',
-            ], $person->toArray())));
+            ], $account->toArray())));
     }
 
     /**

@@ -522,6 +522,8 @@ class Person
             'IdentityDocument'      => $this->identityDocument,
             'MonthlyIncome'         => $this->monthlyIncome,
             'PersonDocuments'       => array_map(function($document){return $document->toArray();}, $this->documents),
-        ]);
+        ], function($v) {
+            return !is_null($v);
+        });
     }
 }

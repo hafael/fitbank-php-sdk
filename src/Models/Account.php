@@ -83,9 +83,14 @@ class Account
     public $persons = [];
 
     /**
-     * @var mixed
+     * @var Person
      */
     public $holder;
+
+    /**
+     * @var Company
+     */
+    public $company;
     
     /**
      * Model constructor.
@@ -229,14 +234,32 @@ class Account
     }
 
     /**
-     * @param array|Company|Person $holder
+     * @return null|Person|Company
      */
-    public function holder($holder)
+    public function holder()
     {
-        if($this->profileType === self::PROFILE_TYPE_COMPANY) {
-            $this->holder = $holder instanceof Company ? $holder : new Company($holder);
+        if($this->profileType !== self::PROFILE_TYPE_COMPANY)
+        {
+            foreach($this->persons as $person)
+            {
+                if($person->personRoleType === Person::ROLE_TYPE_HOLDER) {
+                    return $person;
+                }
+            }
+        }
+
+        return $this->company;
+    }
+
+    /**
+     * @param array|Company $company
+     */
+    public function company($company)
+    {
+        if($company instanceof Company) {
+            $this->company = $company;
         } else {
-            $this->holder = $holder instanceof Person ? $holder : new Person($holder);
+            $this->company = new Company($company);
         }
         return $this;
     }
@@ -278,12 +301,12 @@ class Account
      */
     public function persons(array $persons)
     {
-        foreach($persons as $document)
+        foreach($persons as $person)
         {
-            if($document instanceof Person) {
-                $this->persons[] = $document;
-            }else if (is_array($document)) {
-                $this->persons[] = new Person($document);
+            if($person instanceof Person) {
+                $this->persons[] = $person;
+            }else if (is_array($person)) {
+                $this->persons[] = new Person($person);
             }
         }
         return $this;
@@ -295,24 +318,41 @@ class Account
      */
     public function toArray()
     {
-        $addresses = array_map(function($address){return $address->toArray();}, $this->addresses);
-        $persons = array_map(function($person){return $person->toArray();}, $this->persons);
-        $documents = array_map(function($document){return $document->toArray();}, $this->documents);
-
-        return array_filter(
-            array_merge(
-                [
-                    'IsCompany'        => $this->profileType,
-                    'Bank'             => $this->bank,
-                    'BankBranch'       => $this->bankBranch,
-                    'BankAccount'      => $this->bankAccount,
-                    'BankAccountDigit' => $this->bankAccountDigit,
-                    'Addresses'        => $addresses,
-                    'Documents'        => $documents,
-                    'Persons'          => $persons,
-                ],
-                $this->holder->toArray()
-            )
+        
+        $persons = array_filter(
+            array_map(function($person){
+                return $person->toArray();
+            }, $this->persons), 
+            function($person) {
+                return $person['PersonRoleType'] !== Person::ROLE_TYPE_HOLDER;
+            }
         );
+
+        $holder = $this->holder();
+
+        $documents = array_map(function($document){return $document->toArray();}, $holder->documents);
+        $addresses = [$holder->address->toArray()];
+
+        if($this->profileType === self::PROFILE_TYPE_COMPANY) {
+            $addresses[] = $this->company->address->toArray();
+            $documents[] = array_map(function($document){return $document->toArray();}, $this->company->documents);
+        }
+
+        $data = array_merge([
+            'IsCompany'        => $this->profileType,
+            'Bank'             => $this->bank,
+            'BankBranch'       => $this->bankBranch,
+            'BankAccount'      => $this->bankAccount,
+            'BankAccountDigit' => $this->bankAccountDigit,
+            'Addresses'        => $addresses,
+            'Documents'        => $documents,
+            'Persons'          => $persons,
+        ], array_filter($this->holder()->toArray(), function($k) {
+            return !in_array($k, ['PersonDocuments', 'PersonRoleType']);
+        }, ARRAY_FILTER_USE_KEY));
+
+        return array_filter($data, function($v) {
+            return (!is_array($v) && !is_null($v)) || (is_array($v) && !empty($v));
+        });
     }
 }

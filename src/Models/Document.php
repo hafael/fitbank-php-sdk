@@ -36,8 +36,8 @@ class Document
     ];
 
     const DOCUMENT_NAME = [
-        self::TYPE_IDENTITY_FRONT     => 'Identidate',
-        self::TYPE_IDENTITY_VERSE     => 'Identidate',
+        self::TYPE_IDENTITY_FRONT     => 'Identidade',
+        self::TYPE_IDENTITY_VERSE     => 'Identidade',
         self::TYPE_TAX_NUMBER         => 'CPF',
         self::TYPE_PROOF_ADDRESS      => 'Comprovante de Endereço',
         self::TYPE_CNH                => 'CNH',

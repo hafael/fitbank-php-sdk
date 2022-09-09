@@ -4,12 +4,14 @@ namespace Hafael\Fitbank;
 
 use Hafael\Fitbank\Api\Account;
 use Hafael\Fitbank\Api\Boleto;
+use Hafael\Fitbank\Api\Card;
 use Hafael\Fitbank\Api\Dict;
 use Hafael\Fitbank\Api\Payment;
 use Hafael\Fitbank\Api\Pix;
 use Hafael\Fitbank\Api\Ted;
 use Hafael\Fitbank\Api\TopUp;
 use Hafael\Fitbank\Api\User;
+use Hafael\Fitbank\Api\Withdrawal;
 use Hafael\Fitbank\Handler\Curl;
 use Hafael\Fitbank\Handler\Http;
 use Hafael\Fitbank\Contracts\RouteInterface;
@@ -36,14 +38,16 @@ class Client implements ClientInterface
      * @var array
      */
     const API_RESOURCES = [
-        'account'  => Account::class,
-        'users'    => User::class,
-        'boleto'   => Boleto::class,
-        'pix'      => Pix::class,
-        'dict'     => Dict::class,
-        'ted'      => Ted::class,
-        'topups'   => TopUp::class,
-        'payments' => Payment::class,
+        'account'    => Account::class,
+        'users'      => User::class,
+        'boleto'     => Boleto::class,
+        'pix'        => Pix::class,
+        'dict'       => Dict::class,
+        'ted'        => Ted::class,
+        'topups'     => TopUp::class,
+        'payments'   => Payment::class,
+        'withdrawal' => Withdrawal::class,
+        'cards'      => Card::class,
     ];
 
     /**
@@ -339,9 +343,9 @@ class Client implements ClientInterface
 
         if(! empty($data)) {
             $resource->setBody(array_merge($data, [
-                'PartnerId' => $this->getPartnerId(),
+                'PartnerId'      => $this->getPartnerId(),
                 'BusinessUnitId' => $this->getBusinessUnitId(),
-                'MktPlaceId' => $this->getMktPlaceId(),
+                'MktPlaceId'     => $this->getMktPlaceId(),
             ]));
         }
 
