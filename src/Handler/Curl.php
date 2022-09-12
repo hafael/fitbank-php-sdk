@@ -201,17 +201,17 @@ class Curl
             $this->handlerException($ex);
         }
 
-        if(!$this->response->ok() && $this->response->isValidationError()) {
+        // if(!$this->response->ok() && $this->response->isValidationError()) {
             
-            throw (new ValidationException($this->response->errorMessage(), 422))->setValidationErrors($this->response->validationErrors());
+        //     throw (new ValidationException($this->response->errorMessage(), 422))->setValidationErrors($this->response->validationErrors());
 
-        }else if((!$this->response->ok() && $this->response->respondError())) {
+        // }else if((!$this->response->ok() && $this->response->respondError())) {
             
-            throw new ClientException($this->response->errorMessage(), 400);
+        //     throw new ClientException($this->response->errorMessage(), 400);
 
-        }else if(curl_errno($this->resource)) {
-            throw new ServerException('Server error', 500);
-        }
+        // }else if(curl_errno($this->resource)) {
+        //     throw new ServerException('Server error', 500);
+        // }
 
         return $this->response;
     }

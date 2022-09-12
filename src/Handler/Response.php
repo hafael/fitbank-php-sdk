@@ -2,6 +2,9 @@
 
 namespace Hafael\Fitbank\Handler;
 
+use Hafael\Fitbank\Exceptions\ClientException;
+use Hafael\Fitbank\Exceptions\ServerException;
+use Hafael\Fitbank\Exceptions\ValidationException;
 
 class Response
 {
@@ -259,6 +262,20 @@ class Response
     public function isValidationError()
     {
         return $this->respondError() && !empty($this->validationErrors());
+    }
+
+    /**
+     * @return bool
+     */
+    public function throw()
+    {
+        if(!$this->response->ok() && $this->isValidationError()) {
+            throw (new ValidationException($this->errorMessage(), 422))->setValidationErrors($this->validationErrors());
+        }else if((!$this->ok() && $this->respondError())) {
+            throw new ClientException($this->errorMessage(), 400);
+        }
+        throw new ServerException('Server error', 500);
+
     }
     
 }

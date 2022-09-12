@@ -112,6 +112,25 @@ class Account extends Api
     }
 
     /**
+     * GetAccountBalance
+     * 
+     * @param string $taxNumber
+     * @param string $startDate
+     * @param string $endDate
+     * @return mixed
+     */
+    public function getAccountBalance($taxNumber, $startDate = null, $endDate = null)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method'      => 'GetAccountEntry',
+            'TaxNumber'   => $taxNumber,
+            'StartDate'   => empty($startDate) ? date('Y/m/d') : $startDate,
+            'EndDate'     => empty($endDate) ? date('Y/m/d') : $endDate,
+            'OnlyBalance' => true
+        ]));
+    }
+
+    /**
      * NewAccount
      * 
      * @param NewAccount $account

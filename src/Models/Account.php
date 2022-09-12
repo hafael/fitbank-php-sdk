@@ -43,9 +43,9 @@ class Account
     public $accountKey;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $spbAccount;
+    public $spbAccount = false;
 
     /**
      * @var string
@@ -189,9 +189,9 @@ class Account
     }
 
     /**
-     * @param string $spbAccount
+     * @param bool $spbAccount
      */
-    public function spbAccount(string $spbAccount)
+    public function spbAccount(bool $spbAccount)
     {
         $this->spbAccount = $spbAccount;
         return $this;
