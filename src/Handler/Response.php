@@ -269,7 +269,7 @@ class Response
      */
     public function throw()
     {
-        if(!$this->response->ok() && $this->isValidationError()) {
+        if(!$this->ok() && $this->isValidationError()) {
             throw (new ValidationException($this->errorMessage(), 422))->setValidationErrors($this->validationErrors());
         }else if((!$this->ok() && $this->respondError())) {
             throw new ClientException($this->errorMessage(), 400);

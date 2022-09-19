@@ -151,17 +151,24 @@ class DigitalWithdrawal
      */
     public function toArray()
     {
-        return array_filter([
+        $data = [
             'TaxNumber'        => $this->taxNumber,
             'Value'            => $this->value,
             'Identifier'       => $this->identifier,
-            'Bank'             => $this->fromBank->bank,
-            'BankBranch'       => $this->fromBank->bankBranch,
-            'BankAccount'      => $this->fromBank->bankAccount,
-            'BankAccountDigit' => $this->fromBank->bankAccountDigit,
             'RateValue'        => $this->rateValue,
             'RateValueType'    => $this->rateValueType,
-        ], function($value) {
+        ];
+
+        if(!empty($this->fromBank)) {
+            $data = array_merge($data, [
+                'Bank'             => $this->fromBank->bank,
+                'BankBranch'       => $this->fromBank->bankBranch,
+                'BankAccount'      => $this->fromBank->bankAccount,
+                'BankAccountDigit' => $this->fromBank->bankAccountDigit,
+            ]);
+        }
+
+        return array_filter($data, function($value) {
             return !is_null($value);
         });
     }
