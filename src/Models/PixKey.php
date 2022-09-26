@@ -251,7 +251,7 @@ class PixKey
      */
     public function bankBranch(string $bankBranch)
     {
-        $this->bankBranch = $bankBranch;
+        $this->bankBranch = str_pad($bankBranch, 4, '0', STR_PAD_LEFT);
         return $this;
     }
 

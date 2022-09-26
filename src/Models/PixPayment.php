@@ -67,14 +67,49 @@ class PixPayment
     public $accountType;
 
     /**
+     * @var int
+     */
+    public $changeType;
+
+    /**
+     * @var int
+     */
+    public $reusable;
+
+    /**
      * @var string
      */
     public $paymentDate;
+
+    /**
+     * @var string
+     */
+    public $expirationDate;
     
     /**
      * @var float
      */
     public $value;
+
+    /**
+     * @var float
+     */
+    public $principalValue;
+
+    /**
+     * @var float
+     */
+    public $transactionValue;
+
+    /**
+     * @var int
+     */
+    public $transactionChangeType;
+
+    /**
+     * @var int
+     */
+    public $agentModality;
 
     /**
      * @var float
@@ -85,6 +120,11 @@ class PixPayment
      * @var int
      */
     public $rateValueType;
+
+    /**
+     * @var int
+     */
+    public $transactionPurpose;
 
     /**
      * @var string
@@ -109,12 +149,27 @@ class PixPayment
     /**
      * @var string
      */
+    public $additionalData;
+
+    /**
+     * @var string
+     */
+    public $payerRequest;
+
+    /**
+     * @var string
+     */
     public $customerMessage;
 
     /**
      * @var int
      */
     public $status;
+
+    /**
+     * @var mixed
+     */
+    public $address;
     
     /**
      * Model constructor.
@@ -445,8 +500,8 @@ class PixPayment
             'BankAccountDigit'      => $this->bankAccountDigit,
             'TaxNumber'             => $this->taxNumber,
             //From(PixIn)
-            'payerName'             => $this->fromKey->name,
-            'payerTaxNumber'        => $this->fromKey->taxNumber,
+            'payerName'             => $this->fromKey ? $this->fromKey->name : null,
+            'payerTaxNumber'        => $this->fromKey ? $this->fromKey->taxNumber : null,
             
             /////////00
             'ChangeType'            => $this->changeType,
@@ -486,7 +541,43 @@ class PixPayment
         });
     }
 
-    public function toSendPixOut() {}
+    public function toSendPixOut() 
+    {
+        return array_filter(array_merge($this->toArray(), [
+
+            'PixKey'           => $this->toKey->key,
+            'PixKeyType'       => $this->toKey->keyType,
+            'ToName'           => $this->toKey->name,
+            'ToTaxNumber'      => $this->toKey->name,
+            'FromTaxNumber'    => $this->taxNumber,
+            'Bank'             => $this->bank,
+            'BankBranch'       => $this->bankBranch,
+            'BankAccount'      => $this->bankAccount,
+            'BankAccountDigit' => $this->bankAccountDigit,
+        ]), function($k) {
+            return in_array($k, [
+                'FromTaxNumber',
+                'ToTaxNumber',
+                'ToName',
+                'Bank',
+                'BankBranch',
+                'BankAccount',
+                'BankAccountDigit',
+                'AccountType',
+                'Value',
+                'RateValue',
+                'RateValueType',
+                'Identifier',
+                'Description',
+                'PaymentDate',
+                'PixKey',
+                'PixKeyType',
+                'InitiationType',
+                'SearchProtocol',
+                'CustomerMessage'
+            ]);
+        }, ARRAY_FILTER_USE_KEY);
+    }
 
     /**
      * Only GenerateDynamicPixQRCode params

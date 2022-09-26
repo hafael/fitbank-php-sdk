@@ -4,6 +4,7 @@ namespace Hafael\Fitbank\Api;
 
 use Hafael\Fitbank\Models\Account;
 use Hafael\Fitbank\Models\PixCollect;
+use Hafael\Fitbank\Models\PixOut;
 use Hafael\Fitbank\Models\PixPayment;
 use Hafael\Fitbank\Models\PixRefund;
 use Hafael\Fitbank\Route;
@@ -14,14 +15,14 @@ class Pix extends Api
     /**
      * GeneratePixOut
      * 
-     * @param PixPayment $pixPayment
+     * @param PixOut $pixOut
      * @return mixed
      */
-    public function generatePixOut(PixPayment $pixPayment)
+    public function generatePixOut(PixOut $pixOut)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
             'Method' => 'GeneratePixOut',
-        ], $pixPayment->toArray() )));
+        ], $pixOut->toArray() )));
     }
 
     /**
