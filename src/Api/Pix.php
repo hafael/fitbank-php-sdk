@@ -94,6 +94,21 @@ class Pix extends Api
     }
 
     /**
+     * GetPixQRCodeById
+     * 
+     * @param Account $account
+     * @return mixed
+     */
+    public function getPixQRCodeById(string $taxNumber, string $documentNumber)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method' => 'GetPixQRCodeById',
+            'TaxNumber' => $taxNumber,
+            'DocumentNumber' => $documentNumber
+        ]));
+    }
+
+    /**
      * GetPixOutById
      * 
      * @param Account $account
