@@ -20,6 +20,9 @@ class Pix extends Api
      */
     public function generatePixOut(PixOut $pixOut)
     {
+        // dd($this->getBody(array_merge([
+        //     'Method' => 'GeneratePixOut',
+        // ], $pixOut->toArray() )));
         return $this->client->post(new Route(), $this->getBody(array_merge([
             'Method' => 'GeneratePixOut',
         ], $pixOut->toArray() )));
