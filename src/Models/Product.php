@@ -39,12 +39,12 @@ class Product
     public $receiverTaxNumber;
 
     /**
-     * @var int
+     * @var int|string
      */
     public $reference;
 
     /**
-     * @var int
+     * @var int|string
      */
     public $productCode;
 
@@ -173,18 +173,18 @@ class Product
     }
 
     /**
-     * @param int $reference
+     * @param int|string $reference
      */
-    public function reference(int $reference)
+    public function reference($reference)
     {
         $this->reference = $reference;
         return $this;
     }
 
     /**
-     * @param int $productCode
+     * @param int|string $productCode
      */
-    public function productCode(int $productCode)
+    public function productCode($productCode)
     {
         $this->productCode = $productCode;
         return $this;

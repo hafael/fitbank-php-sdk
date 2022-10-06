@@ -19,8 +19,8 @@ class Boleto
     const STATUS_REGISTERING      = 2;
     const STATUS_REGISTERED       = 3;
     const STATUS_REJECTED         = 4;
-    const STATUS_SETTLED          = 5;
-    const STATUS_PAID             = 6;
+    const STATUS_PAID             = 5;
+    //const STATUS_SETTLED          = 6;
     const STATUS_CANCELED         = 7;
     const STATUS_INTERNAL_ERROR   = 8;
     const STATUS_BALANCE_ERROR    = 9;
