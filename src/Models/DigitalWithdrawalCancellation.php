@@ -75,7 +75,6 @@ class DigitalWithdrawalCancellation
             'TaxNumber'          => $this->taxNumber,
             'DocumentNumber'     => $this->documentNumber,
             'OriginNSU'          => $this->originNsu,
-            'ExternalIdentifier' => $this->externalIdentifier,
         ], function($value) {
             return !is_null($value);
         });

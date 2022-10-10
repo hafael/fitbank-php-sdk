@@ -115,12 +115,12 @@ class Pix extends Api
      * @param Account $account
      * @return mixed
      */
-    public function getPixOutById(Account $account, string $documentNumber)
+    public function getPixOutById(PixOut $pixOut, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
             'Method' => 'GetPixOutById',
-            'DocumentNumber' => $documentNumber
-        ], $account->toArray() )));
+            'DocumentNumber' => $documentNumber,
+        ], $pixOut->toGetPixOutArray() )));
     }
 
     /**

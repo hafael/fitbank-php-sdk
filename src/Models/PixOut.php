@@ -322,4 +322,22 @@ class PixOut
             return !is_null($value);
         });
     }
+
+    /**
+     * All payment read attributes
+     * 
+     * @return array
+     */
+    public function toGetPixOutArray()
+    {
+        return array_filter([
+            'Bank'                  => $this->bank,
+            'BankBranch'            => $this->bankBranch,
+            'BankAccount'           => $this->bankAccount,
+            'BankAccountDigit'      => $this->bankAccountDigit,
+            'TaxNumber'             => $this->taxNumber,
+        ], function($value) {
+            return !is_null($value);
+        });
+    }
 }

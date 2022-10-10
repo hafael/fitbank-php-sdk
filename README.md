@@ -23,7 +23,7 @@ PHP 7.3 or higher
 | PIX in/out/Dict      | ✅  |
 | TED in/out           | ⌛  |
 | Prepaid card         | ✅  |
-| ATM Withdrawals      | ✅  |
+| ATM Digital Withdraw | ✅  |
 | Payments             | ⌛  |
 | Users                | ✅  |
 
