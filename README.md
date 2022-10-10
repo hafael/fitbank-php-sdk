@@ -17,12 +17,12 @@ PHP 7.3 or higher
 
 | Resource             | Status   |
 | -------------------- | :------: |
-| Account PF/PJ/Minors | ✅  |
-| Boleto in            | ✅  |
-| Boleto out           | ✅  |
+| Account Management   | ✅  |
+| Boleto in/ou         | ✅  |
 | PIX in/out/Dict      | ✅  |
 | TED in/out           | ⌛  |
 | Prepaid card         | ✅  |
+| Top Ups              | ✅  |
 | ATM Digital Withdraw | ✅  |
 | Payments             | ⌛  |
 | Users                | ✅  |
