@@ -2,7 +2,7 @@
 
 namespace Hafael\Fitbank\Models;
 
-class PaymentFGTS
+class PaymentGARE
 {
 
     /**
@@ -16,9 +16,19 @@ class PaymentFGTS
     public $contributorTaxNumber;
 
     /**
+     * @var int
+     */
+    public $gareType;
+
+    /**
+     * @var int
+     */
+    public $referenceNumber;
+
+    /**
      * @var string
      */
-    public $barcode;
+    public $dueDate;
 
     /**
      * @var string
@@ -31,6 +41,21 @@ class PaymentFGTS
     public $principalValue;
 
     /**
+     * @var float
+     */
+    public $fineValue;
+
+    /**
+     * @var float
+     */
+    public $interestValue;
+
+    /**
+     * @var float
+     */
+    public $totalValue;
+
+    /**
      * @var string
      */
     public $codeRevenue;
@@ -38,17 +63,17 @@ class PaymentFGTS
     /**
      * @var string
      */
-    public $fgtsIdentifier;
+    public $stateRegistration;
 
     /**
      * @var string
      */
-    public $socialConnectivityCode;
+    public $activeDebit;
 
     /**
      * @var string
      */
-    public $socialConnectivityDigit;
+    public $quoteNumberNotification;
 
     /**
      * @var string
@@ -69,7 +94,6 @@ class PaymentFGTS
      * @var int
      */
     public $rateValueType = 0;
-
 
     /**
      * @var string
@@ -118,8 +142,8 @@ class PaymentFGTS
         if(isset($data['codeRevenue'])) {
             $this->codeRevenue($data['codeRevenue']);
         }
-        if(isset($data['barcode'])) {
-            $this->barcode($data['barcode']);
+        if(isset($data['gareType'])) {
+            $this->gareType($data['gareType']);
         }
         if(isset($data['paymentDate'])) {
             $this->paymentDate($data['paymentDate']);
@@ -127,14 +151,29 @@ class PaymentFGTS
         if(isset($data['principalValue'])) {
             $this->principalValue($data['principalValue']);
         }
-        if(isset($data['fgtsIdentifier'])) {
-            $this->fgtsIdentifier($data['fgtsIdentifier']);
+        if(isset($data['fineValue'])) {
+            $this->fineValue($data['fineValue']);
         }
-        if(isset($data['socialConnectivityCode'])) {
-            $this->socialConnectivityCode($data['socialConnectivityCode']);
+        if(isset($data['interestValue'])) {
+            $this->interestValue($data['interestValue']);
         }
-        if(isset($data['socialConnectivityDigit'])) {
-            $this->socialConnectivityDigit($data['socialConnectivityDigit']);
+        if(isset($data['totalValue'])) {
+            $this->totalValue($data['totalValue']);
+        }
+        if(isset($data['stateRegistration'])) {
+            $this->stateRegistration($data['stateRegistration']);
+        }
+        if(isset($data['referenceNumber'])) {
+            $this->referenceNumber($data['referenceNumber']);
+        }
+        if(isset($data['dueDate'])) {
+            $this->dueDate($data['dueDate']);
+        }
+        if(isset($data['activeDebit'])) {
+            $this->activeDebit($data['activeDebit']);
+        }
+        if(isset($data['quoteNumberNotification'])) {
+            $this->quoteNumberNotification($data['quoteNumberNotification']);
         }
         if(isset($data['identifier'])) {
             $this->identifier($data['identifier']);
@@ -187,6 +226,15 @@ class PaymentFGTS
     }
 
     /**
+     * @param int $gareType
+     */
+    public function gareType(int $gareType)
+    {
+        $this->gareType = $gareType;
+        return $this;
+    }
+
+    /**
      * @param string $codeRevenue
      */
     public function codeRevenue(string $codeRevenue)
@@ -196,11 +244,47 @@ class PaymentFGTS
     }
 
     /**
-     * @param string $barcode
+     * @param string $stateRegistration
      */
-    public function barcode(string $barcode)
+    public function stateRegistration(string $stateRegistration)
     {
-        $this->barcode = $barcode;
+        $this->stateRegistration = $stateRegistration;
+        return $this;
+    }
+
+    /**
+     * @param int $referenceNumber
+     */
+    public function referenceNumber(int $referenceNumber)
+    {
+        $this->referenceNumber = $referenceNumber;
+        return $this;
+    }
+
+    /**
+     * @param string $dueDate
+     */
+    public function dueDate(string $dueDate)
+    {
+        $this->dueDate = $dueDate;
+        return $this;
+    }
+
+    /**
+     * @param string $activeDebit
+     */
+    public function activeDebit(string $activeDebit)
+    {
+        $this->activeDebit = $activeDebit;
+        return $this;
+    }
+
+    /**
+     * @param string $quoteNumberNotification
+     */
+    public function quoteNumberNotification(string $quoteNumberNotification)
+    {
+        $this->quoteNumberNotification = $quoteNumberNotification;
         return $this;
     }
 
@@ -221,35 +305,34 @@ class PaymentFGTS
         $this->principalValue = $principalValue;
         return $this;
     }
-
-    /**
-     * @param string $socialConnectivityCode
-     */
-    public function socialConnectivityCode(string $socialConnectivityCode)
-    {
-        $this->socialConnectivityCode = $socialConnectivityCode;
-        return $this;
-    }
-
-    /**
-     * @param string $socialConnectivityDigit
-     */
-    public function socialConnectivityDigit(string $socialConnectivityDigit)
-    {
-        $this->socialConnectivityDigit = $socialConnectivityDigit;
-        return $this;
-    }
-
-    /**
-     * @param string $fgtsIdentifier
-     */
-    public function fgtsIdentifier(string $fgtsIdentifier)
-    {
-        $this->fgtsIdentifier = $fgtsIdentifier;
-        return $this;
-    }
     
-    
+    /**
+     * @param float $fineValue
+     */
+    public function fineValue(float $fineValue)
+    {
+        $this->fineValue = $fineValue;
+        return $this;
+    }
+
+    /**
+     * @param float $interestValue
+     */
+    public function interestValue(float $interestValue)
+    {
+        $this->interestValue = $interestValue;
+        return $this;
+    }
+
+    /**
+     * @param float $totalValue
+     */
+    public function totalValue(float $totalValue)
+    {
+        $this->totalValue = $totalValue;
+        return $this;
+    }
+
     /**
      * @param string $identifier
      */
@@ -283,15 +366,6 @@ class PaymentFGTS
     public function rateValueType(int $rateValueType)
     {
         $this->rateValueType = $rateValueType;
-        return $this;
-    }
-
-    /**
-     * @param int $paymentSubType
-     */
-    public function paymentSubType(int $paymentSubType)
-    {
-        $this->paymentSubType = $paymentSubType;
         return $this;
     }
 
@@ -367,13 +441,19 @@ class PaymentFGTS
             'PhoneToSend'             => $this->phoneToSend,
             'MailToSend'              => $this->mailToSend,
 
-            'FgtsIdentifier'          => $this->fgtsIdentifier,
-            'Barcode'                 => $this->barcode,
-            'PrincipalValue'          => $this->principalValue,
-            'PaymentDate'             => $this->paymentDate,
-            'SocialConnectivityCode'  => $this->socialConnectivityCode,
-            'SocialConnectivityDigit' => $this->socialConnectivityDigit,
+            'GareType'                => $this->gareType,
+            'StateRegistration'       => $this->stateRegistration,
+            'ReferenceNumber'         => $this->referenceNumber,
+            'DueDate'                 => $this->dueDate,
+            'ActiveDebit'             => $this->activeDebit,
+            'QuoteNumberNotification' => $this->quoteNumberNotification,
             'CodeRevenue'             => $this->codeRevenue,
+
+            'PrincipalValue'          => $this->principalValue,
+            'FineValue'               => $this->fineValue,
+            'InterestValue'           => $this->interestValue,
+            'TotalValue'              => $this->principalValue,
+            'PaymentDate'             => $this->paymentDate,
             
             'Description'             => $this->description,
             'Identifier'              => $this->identifier,

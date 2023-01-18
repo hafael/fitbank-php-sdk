@@ -17,7 +17,7 @@ class User extends Api
     public function createUser(UserModel $user)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'GetAccount',
+            'Method' => 'CreateUser',
         ], $user->toArray())));
     }
 

@@ -35,7 +35,7 @@ class User
     /**
      * @var array
      */
-    public $accountsTaxNumber = [];
+    public $accountsTaxNumber;
 
     /**
      * Model constructor.

@@ -61,7 +61,7 @@ class Pix extends Api
     public function changeDynamicPixQRCode(PixCollect $pixCollect, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'ChangeDynamicPixQRCode',
+            'Method'         => 'ChangeDynamicPixQRCode',
             'DocumentNumber' => $documentNumber,
         ], $pixCollect->toArray() )));
     }
@@ -89,7 +89,7 @@ class Pix extends Api
     public function changeDynamicPixQRCodeDueDate(PixCollect $pixCollect, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'ChangeDynamicPixQRCodeDueDate',
+            'Method'         => 'ChangeDynamicPixQRCodeDueDate',
             'DocumentNumber' => $documentNumber,
         ], $pixCollect->toArray() )));
     }
@@ -103,8 +103,8 @@ class Pix extends Api
     public function getPixQRCodeById(string $taxNumber, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method' => 'GetPixQRCodeById',
-            'TaxNumber' => $taxNumber,
+            'Method'         => 'GetPixQRCodeById',
+            'TaxNumber'      => $taxNumber,
             'DocumentNumber' => $documentNumber
         ]));
     }
@@ -118,7 +118,7 @@ class Pix extends Api
     public function getPixOutById(PixOut $pixOut, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'GetPixOutById',
+            'Method'         => 'GetPixOutById',
             'DocumentNumber' => $documentNumber,
         ], $pixOut->toGetPixOutArray() )));
     }
@@ -127,13 +127,20 @@ class Pix extends Api
      * GetPixOutByDate
      * 
      * @param Account $account
+     * @param string $startDate
+     * @param string $endDate
+     * @param int $pageIndex
+     * @param int $pageSize
      * @return mixed
      */
-    public function getPixOutByDate(Account $account, string $documentNumber, string $startDate, string $endDate, $pageIndex = 0, $pageSize = 10)
+    public function getPixOutByDate(Account $account, $startDate, $endDate, $pageIndex = 0, $pageSize = 10)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'GetPixOutByDate',
-            'DocumentNumber' => $documentNumber
+            'Method'    => 'GetPixOutByDate',
+            'StartDate' => $startDate,
+            'EndDate'   => $endDate,
+            'PageSize'  => $pageSize,
+            'Index'     => $pageIndex,
         ], $account->toArray() )));
     }
 
@@ -141,14 +148,36 @@ class Pix extends Api
      * GetPixInByDate
      * 
      * @param Account $account
+     * @param string $startDate
+     * @param string $endDate
+     * @param int $pageIndex
+     * @param int $pageSize
      * @return mixed
      */
-    public function getPixInByDate(Account $account, string $documentNumber, string $startDate, string $endDate, $pageIndex = 0, $pageSize = 10)
+    public function getPixInByDate(Account $account, $startDate, $endDate, $pageIndex = 0, $pageSize = 10)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'GetPixInByDate',
-            'DocumentNumber' => $documentNumber
+            'Method'         => 'GetPixInByDate',
+            'StartDate' => $startDate,
+            'EndDate'   => $endDate,
+            'PageSize'  => $pageSize,
+            'Index'     => $pageIndex,
         ], $account->toArray() )));
+    }
+
+    /**
+     * GetPixInById
+     * 
+     * @param Account $account
+     * @param string $documentNumber
+     * @return mixed
+     */
+    public function getPixInById(PixOut $pixOut, string $documentNumber)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'         => 'GetPixInById',
+            'DocumentNumber' => $documentNumber,
+        ], $pixOut->toGetPixOutArray() )));
     }
 
     /**
@@ -160,7 +189,7 @@ class Pix extends Api
     public function cancelPixOut(Account $account, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody(array_merge([
-            'Method' => 'CancelPixOut',
+            'Method'         => 'CancelPixOut',
             'DocumentNumber' => $documentNumber
         ], $account->toArray() )));
     }
@@ -175,8 +204,8 @@ class Pix extends Api
     public function cancelPixQRCode(string $taxNumber, string $documentNumber)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method' => 'CancelPixQRCode',
-            'TaxNumber' => $taxNumber,
+            'Method'         => 'CancelPixQRCode',
+            'TaxNumber'      => $taxNumber,
             'DocumentNumber' => $documentNumber
         ]));
     }
@@ -191,9 +220,9 @@ class Pix extends Api
     public function getInfosPixHashCode(string $taxNumber, string $hashCode)
     {
         return $this->client->post(new Route(), $this->getBody([
-            'Method' => 'GetInfosPixHashCode',
+            'Method'    => 'GetInfosPixHashCode',
             'TaxNumber' => $taxNumber,
-            'Hash' => $hashCode
+            'Hash'      => $hashCode
         ]));
     }
 
@@ -209,6 +238,66 @@ class Pix extends Api
             'Method' => 'GenerateRefundPixIn',
         ], $pixRefund->toArray())));
     }
+
+    /**
+     * GetRefundPixInById
+     * 
+     * @param Account $account
+     * @return mixed
+     */
+    public function getRefundPixInById(Account $account, string $documentNumber)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'         => 'GetRefundPixInById',
+            'DocumentNumber' => $documentNumber,
+        ], $account->toArray() )));
+    }
+
+    /**
+     * GetRefundPixInByDate
+     * 
+     * @param string $taxNumber
+     * @param string $startDate
+     * @param string $endDate
+     * @param int $pageIndex
+     * @param int $pageSize
+     * @return mixed
+     */
+    public function getRefundPixInByDate(string $taxNumber, $startDate = null, $endDate = null, $pageIndex = 0, $pageSize = 10)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method'    => 'GetRefundPixInByDate',
+            'TaxNumber' => $taxNumber,
+            'StartDate' => $startDate,
+            'EndDate'   => $endDate,
+            'PageSize'  => $pageSize,
+            'Index'     => $pageIndex,
+        ]));
+    }
+
+    /**
+     * GetRefundPixOutByDate
+     * 
+     * @param string $taxNumber
+     * @param string $startDate
+     * @param string $endDate
+     * @param int $pageIndex
+     * @param int $pageSize
+     * @return mixed
+     */
+    public function getRefundPixOutByDate(string $taxNumber, $startDate = null, $endDate = null, $pageIndex = 0, $pageSize = 10)
+    {
+        return $this->client->post(new Route(), $this->getBody([
+            'Method'    => 'GetRefundPixOutByDate',
+            'TaxNumber' => $taxNumber,
+            'StartDate' => $startDate,
+            'EndDate'   => $endDate,
+            'PageSize'  => $pageSize,
+            'Index'     => $pageIndex,
+        ]));
+    }
+
+    
 
 
 }

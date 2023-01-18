@@ -4,7 +4,12 @@ namespace Hafael\Fitbank\Api;
 
 use Hafael\Fitbank\Models\Boleto as BoletoModel;
 use Hafael\Fitbank\Models\BoletoOut;
+use Hafael\Fitbank\Models\PaymentDARF;
+use Hafael\Fitbank\Models\PaymentDARJ;
 use Hafael\Fitbank\Models\PaymentFGTS;
+use Hafael\Fitbank\Models\PaymentGARE;
+use Hafael\Fitbank\Models\PaymentGPS;
+use Hafael\Fitbank\Models\PaymentGRU;
 use Hafael\Fitbank\Route;
 
 class Payment extends Api
@@ -303,6 +308,71 @@ class Payment extends Api
         
         return $this->client->post(new Route(), $this->getBody(array_merge([
             'Method'    => 'GeneratePaymentFGTS',
+        ], $payment->toArray())));
+    }
+
+    /**
+     * GeneratePaymentDARF
+     * 
+     * @param PaymentDARF $payment
+     * @return mixed
+     */
+    public function generatePaymentDARF(PaymentDARF $payment)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'    => 'GeneratePaymentDARF',
+        ], $payment->toArray())));
+    }
+
+    /**
+     * GeneratePaymentGARE
+     * 
+     * @param PaymentGARE $payment
+     * @return mixed
+     */
+    public function generatePaymentGARE(PaymentGARE $payment)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'    => 'GeneratePaymentGARE',
+        ], $payment->toArray())));
+    }
+
+    /**
+     * GeneratePaymentDARJ
+     * 
+     * @param PaymentDARJ $payment
+     * @return mixed
+     */
+    public function generatePaymentDARJ(PaymentDARJ $payment)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'    => 'GeneratePaymentDARJ',
+        ], $payment->toArray())));
+    }
+
+    /**
+     * GeneratePaymentGPS
+     * 
+     * @param PaymentGPS $payment
+     * @return mixed
+     */
+    public function generatePaymentGPS(PaymentGPS $payment)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'    => 'GeneratePaymentGPS',
+        ], $payment->toArray())));
+    }
+
+    /**
+     * GeneratePaymentGRU
+     * 
+     * @param PaymentGRU $payment
+     * @return mixed
+     */
+    public function generatePaymentGRU(PaymentGRU $payment)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method'    => 'GeneratePaymentGRU',
         ], $payment->toArray())));
     }
 

@@ -64,6 +64,21 @@ class Image
     }
 
     /**
+     * @param string $mimeType
+     * @return int
+     */
+    public static function extensionFromMime(string $mimeType)
+    {
+        return [
+            self::MIME_JPEG => '.jpeg',
+            self::MIME_JPG  => '.jpg',
+            self::MIME_PNG  => '.png',
+            self::MIME_PDF  => '.pdf',
+            self::MIME_TXT  => '.txt',
+        ][$mimeType];
+    }
+
+    /**
      * @return string
      */
     public function mimeType()

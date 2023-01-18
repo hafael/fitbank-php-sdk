@@ -223,15 +223,15 @@ class Account extends Api
      * BlockAccount
      * 
      * @param string $taxNumber
-     * @param string $accoutKey
+     * @param string $identifier
      * @return mixed
      */
-    public function blockAccount($taxNumber, $accoutKey)
+    public function blockAccount($taxNumber, $identifier = null)
     {
         return $this->client->post(new Route(), $this->getBody([
             'Method' => 'BlockAccount',
             'TaxNumber' => $taxNumber,
-            'Accountkey' => $accoutKey,
+            'Identifier' => $identifier,
         ]));
     }
 
