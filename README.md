@@ -24,7 +24,7 @@ PHP 7.3 or higher
 | Prepaid card         | ✅  |
 | Top Ups              | ✅  |
 | ATM Digital Withdraw | ✅  |
-| Payments             | ⌛  |
+| Payments             | ✅  |
 | Users                | ✅  |
 
 ✅ = All methods available
