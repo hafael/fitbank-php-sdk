@@ -13,17 +13,19 @@ This library provides developers with a simple set of bindings to help you integ
 PHP 7.3 or higher
 
 
-## 🧩 Features covered
+## 🧩 Collections covered
 
 | Resource             | Status   |
 | -------------------- | :------: |
+| Onboarding           | ✅  |
 | Account Management   | ✅  |
-| Boleto in/ou         | ✅  |
+| Boleto in/out        | ✅  |
 | PIX in/out/Dict      | ✅  |
-| TED in/out           | ⌛  |
-| Prepaid card         | ✅  |
+| TED in/out           | ✅  |
+| P2P transfers        | ✅  |
+| Prepaid cards        | ✅  |
 | Top Ups              | ✅  |
-| ATM Digital Withdraw | ✅  |
+| ATM Withdrawals      | ✅  |
 | Payments             | ✅  |
 | Users                | ✅  |
 
@@ -93,7 +95,7 @@ Creating new KYC Account
         'identityDocument' => '269435310',
         'personName' => 'Rafael da Cruz Santos',
         'nickname' => 'Rafael',
-        'mail' => 'clientmail@mail.com',
+        'mail' => 'rafaelmail@meuemail.com',
         'phoneNumber' => '219729345534',
         'checkPendingTransfers' => false,
         'publicExposedPerson' => false,
@@ -152,5 +154,5 @@ Visit our Dev Site for further information regarding:
 
 ## 📜 License 
 
-MIT license. Copyright (c) 2022 - Hafael / Fitbank
+MIT license. Copyright (c) 2023 - [Rafael](https://github.com/hafael) / [Fitbank](https://fitbank.com.br)
 For more information, see the [LICENSE](https://github.com/hafael/fitbank-php-sdk/blob/main/LICENSE) file.

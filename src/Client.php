@@ -7,6 +7,7 @@ use Hafael\Fitbank\Api\Boleto;
 use Hafael\Fitbank\Api\Card;
 use Hafael\Fitbank\Api\Dict;
 use Hafael\Fitbank\Api\Payment;
+use Hafael\Fitbank\Api\PeerToPeer;
 use Hafael\Fitbank\Api\Pix;
 use Hafael\Fitbank\Api\Ted;
 use Hafael\Fitbank\Api\TopUp;
@@ -44,6 +45,7 @@ class Client implements ClientInterface
         'pix'        => Pix::class,
         'dict'       => Dict::class,
         'ted'        => Ted::class,
+        'p2p'        => PeerToPeer::class,
         'topups'     => TopUp::class,
         'payments'   => Payment::class,
         'withdrawal' => Withdrawal::class,
