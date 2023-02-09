@@ -2,10 +2,7 @@
 
 namespace Hafael\Fitbank\Api;
 
-use Hafael\Fitbank\Models\MoneyTransferIn;
-use Hafael\Fitbank\Models\MoneyTransferOut;
 use Hafael\Fitbank\Models\MoneyTransferP2P;
-use Hafael\Fitbank\Models\MoneyTransferQuery;
 use Hafael\Fitbank\Models\MultipleP2PTransfer;
 use Hafael\Fitbank\Route;
 

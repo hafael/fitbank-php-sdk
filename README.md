@@ -13,7 +13,7 @@ This library provides developers with a simple set of bindings to help you integ
 PHP 7.3 or higher
 
 
-## 🧩 Collections covered
+## 🧩 Covered collections
 
 | Resource             | Status   |
 | -------------------- | :------: |

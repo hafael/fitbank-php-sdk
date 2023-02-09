@@ -5,6 +5,7 @@ namespace Hafael\Fitbank\Api;
 use Hafael\Fitbank\Route;
 use Hafael\Fitbank\Models\Account as AccountModel;
 use Hafael\Fitbank\Models\BankAccount;
+use Hafael\Fitbank\Models\CloseAccount;
 use Hafael\Fitbank\Models\NewAccount;
 use Hafael\Fitbank\Models\Person;
 
@@ -217,6 +218,19 @@ class Account extends Api
             array_merge([
                 'Method' => 'CheckAccountPerson',
             ], $person->toArray())));
+    }
+
+    /**
+     * CloseAccount
+     * 
+     * @param CloseAccount $closeAccount
+     * @return mixed
+     */
+    public function closeAccount(CloseAccount $closeAccount)
+    {
+        return $this->client->post(new Route(), $this->getBody(array_merge([
+            'Method' => 'CloseAccount',
+        ], $closeAccount->toArray())));
     }
 
     /**
