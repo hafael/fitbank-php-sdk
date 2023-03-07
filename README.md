@@ -5,15 +5,27 @@
 [![Total Downloads](http://poser.pugx.org/hafael/fitbank-php-sdk/downloads)](https://packagist.org/packages/hafael/fitbank-php-sdk)
 [![License](http://poser.pugx.org/hafael/fitbank-php-sdk/license)](https://packagist.org/packages/hafael/fitbank-php-sdk)
 
+
+## Bank up your business
+FitBank provides comprehensive financial service integrations. With a RESTful API platform, FitBank allows businesses to build custom products adapted to customers' needs.
+
+Fully configurable, ideal for instant payments with PIX, boleto collection, utilities and taxes payments, online balance and statement, digital onboarding, and prepaid card in a white-label experience and beyond.
+
+## Why FitBank?
+We aspire to speed up the digital transformation of the entire financial ecosystem with scale, performance, and control of high-volume transactions.
+
 This library provides developers with a simple set of bindings to help you integrate Fitbank API to PHP website project.
 
+## Fitbank Dev Portal
+Hi, Dev! This page will help you get started with FitBank API.
+[https://dev.fitbank.com.br/docs](https://dev.fitbank.com.br/docs)
 
 ## 💡 Requirements
 
 PHP 7.3 or higher
 
 
-## 🧩 Covered collections
+## 🧩 Fitbank Collections
 
 | Resource             | Status   |
 | -------------------- | :------: |
@@ -28,6 +40,8 @@ PHP 7.3 or higher
 | ATM Withdrawals      | ✅  |
 | Payments             | ✅  |
 | Users                | ✅  |
+| EasyCrédito (CaaS)   | 💻  |
+| Collection Order     | 💻  |
 
 ✅ = All methods available
 ⌛ = Under development/testing
@@ -58,7 +72,7 @@ That's it! Fitbank PHP SDK has been successfully installed.
     $fitbankClient = new Hafael\Fitbank\Client(
         'API_KEY', 
         'API_SECRET', 
-        'PARTNET_ID', 
+        'PARTNER_ID', 
         'BUSINESS_UNIT_ID',
         'MKTPLACE_ID',
         'TAX_NUMBER', //Account Owner
@@ -93,13 +107,13 @@ Creating new KYC Account
         'personRoleType' => Person::ROLE_TYPE_HOLDER,
         'taxNumber' => '88494940090',
         'identityDocument' => '269435310',
-        'personName' => 'Rafael da Cruz Santos',
+        'personName' => 'Rafael de Marquez Santos',
         'nickname' => 'Rafael',
         'mail' => 'rafaelmail@meuemail.com',
         'phoneNumber' => '219729345534',
         'checkPendingTransfers' => false,
         'publicExposedPerson' => false,
-        'birthDate' => '1991/03/20',
+        'birthDate' => '1996/05/20',
         'motherFullName' => 'Daniela Cruz de Marquez',
         'fatherFullName' => 'João Francisco Santos',
         'nationality' => 'Brasileiro',
@@ -121,9 +135,9 @@ Creating new KYC Account
     $addresses = [
         new Address([
             'addressType' => Address::RESIDENTIAL,
-            'addressLine' => 'Av. Quintino de Bocaiúva',
+            'addressLine' => 'Av. Constantino de Barros Filho',
             'addressLine2' => '61',
-            'complement' => 'McDonald`s',
+            'complement' => 'APT 704',
             'zipCode' => '24360-022',
             'neighborhood' => 'São Francisco',
             'cityName' => 'Niterói',
@@ -150,6 +164,17 @@ Creating new KYC Account
 
 Visit our Dev Site for further information regarding:
  - Fitbank API Docs: [English](https://dev.fitbank.com.br/docs)
+
+
+## 📜 Other repositories
+Repo | Description 
+--- | ---
+[hafael/php-pix-client](https://github.com/hafael/php-pix-client) | Biblioteca PHP para integração com PSPs no arranjo do PIX
+[hafael/azure-mailer-driver](https://github.com/hafael/azure-mailer-driver) | Azure Email Communication Service (ECS) for Laravel
+[hafael/php-http-client](https://github.com/hafael/php-http-client) | Http client for building modern APIs or simple 3rd party integrations in PHP
+[hafael/laraflake](https://github.com/hafael/laraflake) | LaraFlake generate 64bit unique identifiers for mysql database with horizontal scaling
+[hafael/totalvoice-notification-channel](https://github.com/hafael/totalvoice-notification-channel) | TotalVoice notifications channel for Laravel Framework
+
 
 
 ## 📜 License 

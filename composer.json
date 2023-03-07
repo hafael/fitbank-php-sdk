@@ -1,10 +1,10 @@
 {
     "name": "hafael/fitbank-php-sdk",
-    "description": "Fitbank PHP SDK",
+    "description": "Fitbank SDK for PHP",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
-    "keywords": ["fitbank", "php", "api", "client", "sdk", "autum"],
+    "keywords": ["Fitbank", "PHP", "API", "client", "SDK", "BaaS", "CaaS", "banking", "open finance", "payments", "PIX", "boleto", "cards", "withdrawal", "TED", "P2P", "onboarding", "ispb"],
     "require": {
         "php" : ">=7.3",
         "guzzlehttp/guzzle": ">=6.0"
@@ -15,7 +15,11 @@
     "authors": [
         {
             "name": "Rafael Villa Verde",
-            "email": "villa655321verde@gmail.com"
+            "email": "rafael@autum.com.br"
+        },
+        {
+            "name": "Autum",
+            "email": "autum@autum.com.br"
         }
     ],
     "autoload": {
